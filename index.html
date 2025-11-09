@@ -211,20 +211,40 @@ window.SEM_MENU = menuData;
 
   data.forEach(sec=>{
     const el = document.createElement('div');
-    el.className = 'border rounded-xl bg-white';
-    const itemsHtml = (sec.items||[]).map(r=>{
-      const name = r[0] || '';
-      const price = r[1] || '';
-      const imgSrc = r[2] ? r[2] : `assets/images/${slugify(name)}.jpg`;
-      return `<div class="flex items-center justify-between py-2 border-b border-neutral-100">
-                <div class="flex items-center gap-3">
-                  <img src="${imgSrc}" alt="${name}" class="w-14 h-10 object-cover rounded" onerror="this.onerror=null;this.src='assets/images/placeholder_menu.jpg'">
-                  <div class="text-sm">${name}</div>
+    el.className = 'border rounded-xl bg-white overflow-hidden';
+
+    const itemsHtml = (sec.items||[]).map(item=>{
+      const isArray = Array.isArray(item);
+      const name = isArray ? (item[0] || '') : (item.name || item.Name || '');
+      const price = isArray ? (item[1] || '') : (item.price || item.Price || '');
+      const desc = isArray ? (item[4] || item[3] || '') : (item.description || item.Description || item.desc || item.Desc || '');
+      const rawImg = isArray ? (item[2] || item[3] || '') : (item.img || item.Img || item.image || item.Image || '');
+      const imgSrc = rawImg ? rawImg : `assets/images/${slugify(name)}.jpg`;
+
+      return `<article class="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
+                <div class="aspect-[4/3] w-full overflow-hidden bg-neutral-100">
+                  <img src="${imgSrc}" alt="${name}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null;this.src='assets/images/logo_round.png'">
                 </div>
-                <div class="font-semibold text-sm">${price}</div>
-              </div>`;
+                <div class="p-4 space-y-2">
+                  <div class="flex items-start justify-between gap-3">
+                    <h3 class="font-semibold text-sm md:text-base">${name}</h3>
+                    <span class="text-[color:var(--brand)] font-semibold text-sm md:text-base whitespace-nowrap">${price}</span>
+                  </div>
+                  ${desc ? `<p class="text-xs text-neutral-600 leading-relaxed">${desc}</p>` : ''}
+                </div>
+              </article>`;
     }).join('');
-    el.innerHTML = `<button class="w-full flex items-center justify-between px-4 py-3" onclick="this.nextElementSibling.classList.toggle('hidden')"><span class="font-semibold">${sec.cat}</span><span>+</span></button><div class="hidden px-4 pb-4 text-sm">${itemsHtml}</div>`;
+
+    el.innerHTML = `
+      <button class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-base md:text-lg hover:bg-neutral-50 transition-colors" onclick="const panel=this.nextElementSibling;const icon=this.querySelector('[data-icon]');panel.classList.toggle('hidden');icon.textContent=panel.classList.contains('hidden')?'+':'−';">
+        <span>${sec.cat}</span>
+        <span data-icon>+</span>
+      </button>
+      <div class="hidden px-5 pb-6">
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          ${itemsHtml || '<p class="text-sm text-neutral-500">No items available.</p>'}
+        </div>
+      </div>`;
     acc.appendChild(el);
   });
 </script>
