@@ -1,4 +1,732 @@
-window.SEM_MENU = [{"cat": "Pizza", "items": [["Spicy Paneer Tikka", "269/419"], ["Paneer Makhani", "269/419"], ["Grilled-MUSH Harvest", "269/399"], ["Mushroom Love", "269/399"], ["Spicy Mexi-Corn Delight", "249/379"], ["Classic Vegetable", "199/329"], ["Double Cheese Margherita", "199/299"], ["Cheesy Corn Bliss", "199/299"], ["Meat Lover", "349/499"], ["Peri Peri Chicken", "299/449"], ["BBQ Chicken Pizza", "299/449"], ["Chicken Mexicano", "299/449"], ["Double Cheese & Chicken", "269/419"], ["Chicken Makhani", "269/419"], ["Chicken Tikka", "259/399"], ["Chicken Pepperoni", "199/349"], ["Sausage Mania", "199/349"]]}, {"cat": "Pasta", "items": [["Veg Mixed Sauce Pasta", "229"], ["Creamy Mushroom Pasta", "229"], ["Veg White Sauce Pasta", "199"], ["Veg Red Sauce Pasta", "149"], ["Chicken Mixed Sauce Pasta", "249"], ["Chicken White Sauce Pasta", "229"], ["Chicken Red Sauce Pasta", "169"]]}, {"cat": "Burgers", "items": [["Veg Jumbo Burger", "159"], ["Classic Cheese Veg Burger", "119"], ["Aaloo Tikki Burger", "79"], ["Jumbo Chicken Burger", "179"], ["Chicken Tikka Burger", "159"], ["Crispy Chicken Burger", "159"], ["Classic Cheese Chicken", "139"], ["Simply Chicken", "99"]]}, {"cat": "Sandwich & Wrap", "items": [["Creamy Mushroom", "149/169"], ["Spicy Paneer Tikka", "139/159"], ["Corn Cheese", "129/149"], ["Veggies Overloaded", "99/119"], ["Paneer Basic", "89/109"], ["Veg Basic", "69/89"], ["Crispy Chicken Popcorn", "149/169"], ["Chicken Salami", "149/169"], ["Chicken Sausage", "149/169"], ["Chicken Keema Masala", "149/169"], ["BBQ Chicken", "149/169"], ["Spicy Chicken Tikka", "139/159"], ["Egg Chicken", "129/149"], ["Chicken Cheese", "99/119"], ["Chicken Basic", "89/109"], ["Egg Mayo", "79/99"]]}, {"cat": "Small Bites", "items": [["Crispy Chilli Baby Corn", "149"], ["Crispy Cheese Ball (5pcs)", "149"], ["Cheesy Fries with Chipotle", "149"], ["Kuhlhad Pizza (Veg/Chicken)", "99/119"], ["Potato Wedges Salsa (10pcs)", "119"], ["Cheese Garlic Bread", "79"], ["French Fries (R/M)", "79/99"], ["Fish Finger (Basa/Vetki) (6pcs)", "199/259"], ["Fish Fry & Chips (Basa/Vetki)", "169/229"], ["Cheesy Chicken Chizza", "149"], ["Chicken Sausage Fry (4pcs)", "149"], ["Chicken Nuggets (6pcs)", "159"], ["Crispy Chicken Wings (2pcs)", "99/139"], ["Crispy Chicken Popcorn (10pcs)", "99/139"], ["Crispy Chicken Strips (5pcs)", "99/139"]]}, {"cat": "Maggi", "items": [["Corn Cheese Maggi", "99"], ["Cheesy Whizzy Maggi", "99"], ["Veg Maggi", "59"], ["Plain Maggi", "49"], ["Egg Chicken Maggi", "89"], ["Chicken Maggi", "79"], ["Egg Maggi", "69"]]}, {"cat": "Momo (8 pcs)", "items": [["Veg (Steam/Fry/PanFry)", "79/79/99"], ["Special Chicken (Steam/Fry/PanFry)", "129/129/159"], ["Basic Chicken (Steam/Fry/PanFry)", "99/99/129"]]}, {"cat": "Combos", "items": [["Shaam-E-Snack Combo 1", "Chicken Cheese Sandwich + Masala Tea (M) — 129"], ["Shaam-E-Snack Combo 2", "Corn Cheese Sandwich + Masala Tea (M) — 149"], ["Shaam-E-Snack Combo 3", "2 Chicken Tikka Sandwich + 2 Masala Tea — 299"], ["Shaam-E-Snack Combo 4", "2 Chicken Basic Sandwich + Fries (M) + 2 Coke (250ml) — 329"], ["Crunch Bucket 1", "Wings(2) + Popcorn(10) + Strips(5) + Any dip — 299"], ["Crunch Bucket 2", "Wings(4) + Popcorn(20) + Strips(10) + 2 Dips — 599"], ["Chakhna Box 1", "Wedges(10) + Fries(R) + Peanut mix + dips — 199"], ["Chakhna Box 2", "Wings(3) + Popcorn(6) + mix + dips — 299"], ["Chakhna Box 3", "Cheese Ball(3)+Wedges(5)+Fries(R)+Salad+mix+dips — 299"], ["Chakhna Box 4", "Basa Fry(1) + Popcorn(6) + Sausage Fry + Fries(M) + mix + dips — 399"], ["Bite & Sip Trio 1", "Crispy Chicken Burger + Fries(R) + Coke — 249"], ["Bite & Sip Trio 2", "Veg Jumbo Burger + Fries(R) + Coke — 249"], ["Bite & Sip Trio 3", "Jumbo Chicken Burger + Classic Cheese Chicken + Fries(M) + 2 Coke — 399"]]}, {"cat": "Drinks", "items": [["Milkshakes: Brownie | KitKat | Oreo | Caramel | Chocolate", "139–159"], ["Mocktails: Sunset | Shirley Temple | Mango | Litchi | Blue Lagoon | Virgin Mojito", "99–129"]]}, {"cat": "Tea • Coffee • Dessert", "items": [["Teas (R/M/L): Milk, Ginger, Elaichi, Kesar, Chocolate, Special Masala", "10–49"], ["Coffee: Black, Milk, Americano, Cold, Latte, Mocha, Caramel Cold Coffee", "29–129"], ["Dessert: Brownie • Choco Lava Cake • Brownie w/ Ice‑Cream", "99–129"]]}, {"cat": "Healthy & Breakfast", "items": [["Dalia • Oats Smoothie • Masala Oats", "59"], ["Poha • Upma", "49"], ["Scrambled Egg", "79"], ["Egg Poach", "20/35"], ["Toast & Eggs: Cheese/Fluffy/Masala Veg/Bread/Double/Single • Butter/Jam Toast", "30–79"]]}];
+window.SEM_MENU = [
+  {
+    "cat": "Pizza",
+    "items": [
+      [
+        "Spicy Paneer Tikka",
+        "269/419",
+        "",
+        "",
+        "Smoky paneer tikka, onions and peppers over mozzarella and our signature sauce."
+      ],
+      [
+        "Paneer Makhani",
+        "269/419",
+        "",
+        "",
+        "Creamy makhani gravy with paneer, capsicum and a buttery cheese finish."
+      ],
+      [
+        "Grilled-MUSH Harvest",
+        "269/399",
+        "",
+        "",
+        "Grilled mushrooms, sweet corn and herbs layered on a garlic butter base."
+      ],
+      [
+        "Mushroom Love",
+        "269/399",
+        "",
+        "",
+        "Double mushrooms sautéed with thyme under a blanket of molten cheese."
+      ],
+      [
+        "Spicy Mexi-Corn Delight",
+        "249/379",
+        "",
+        "",
+        "Sweet corn, jalapeños and chipotle sauce for a bright Mexican-style kick."
+      ],
+      [
+        "Classic Vegetable",
+        "199/329",
+        "",
+        "",
+        "Onions, capsicum and tomatoes on our classic tomato sauce with cheese."
+      ],
+      [
+        "Double Cheese Margherita",
+        "199/299",
+        "",
+        "",
+        "Two cheeses melted over basil-kissed tomato sauce for purists."
+      ],
+      [
+        "Cheesy Corn Bliss",
+        "199/299",
+        "",
+        "",
+        "Creamy corn loaded with mozzarella and cheddar on a soft crust."
+      ],
+      [
+        "Meat Lover",
+        "349/499",
+        "",
+        "",
+        "Loaded with chicken sausage, salami and pepperoni on smoky sauce."
+      ],
+      [
+        "Peri Peri Chicken",
+        "299/449",
+        "",
+        "",
+        "Fire-grilled peri peri chicken with peppers and a tangy drizzle."
+      ],
+      [
+        "BBQ Chicken Pizza",
+        "299/449",
+        "",
+        "",
+        "Charred chicken tossed in barbecue sauce with onions and melting cheese."
+      ],
+      [
+        "Chicken Mexicano",
+        "299/449",
+        "",
+        "",
+        "Spiced chicken, jalapeños and corn on chipotle tomato sauce."
+      ],
+      [
+        "Double Cheese & Chicken",
+        "269/419",
+        "",
+        "",
+        "Juicy chicken bites under a duo of mozzarella and cheddar."
+      ],
+      [
+        "Chicken Makhani",
+        "269/419",
+        "",
+        "",
+        "Buttery makhani sauce topped with chicken tikka and peppers."
+      ],
+      [
+        "Chicken Tikka",
+        "259/399",
+        "",
+        "",
+        "Classic chicken tikka chunks with onions and coriander on cheese."
+      ],
+      [
+        "Chicken Pepperoni",
+        "199/349",
+        "",
+        "",
+        "Smoky chicken pepperoni layered with gooey mozzarella."
+      ],
+      [
+        "Sausage Mania",
+        "199/349",
+        "",
+        "",
+        "Chicken sausage, onions and peppers on our signature cheesy base."
+      ]
+    ]
+  },
+  {
+    "cat": "Pasta",
+    "items": [
+      [
+        "Veg Mixed Sauce Pasta",
+        "229",
+        "",
+        "",
+        "Penne tossed in a creamy tomato sauce with garden veggies."
+      ],
+      [
+        "Creamy Mushroom Pasta",
+        "229",
+        "",
+        "",
+        "Button mushrooms simmered in garlic cream sauce with parmesan."
+      ],
+      [
+        "Veg White Sauce Pasta",
+        "199",
+        "",
+        "",
+        "Silky béchamel with veggies and herbs coating al dente pasta."
+      ],
+      [
+        "Veg Red Sauce Pasta",
+        "149",
+        "",
+        "",
+        "Slow-cooked tomato sauce with basil and veggies over pasta."
+      ],
+      [
+        "Chicken Mixed Sauce Pasta",
+        "249",
+        "",
+        "",
+        "Grilled chicken and veggies in a tangy cream and tomato blend."
+      ],
+      [
+        "Chicken White Sauce Pasta",
+        "229",
+        "",
+        "",
+        "Tender chicken in a garlicky Alfredo-style sauce with herbs."
+      ],
+      [
+        "Chicken Red Sauce Pasta",
+        "169",
+        "",
+        "",
+        "Tomato-basil sauce with spiced chicken and parmesan shavings."
+      ]
+    ]
+  },
+  {
+    "cat": "Burgers",
+    "items": [
+      [
+        "Veg Jumbo Burger",
+        "159",
+        "",
+        "",
+        "Hearty veggie patty stacked with cheese, slaw and house sauce."
+      ],
+      [
+        "Classic Cheese Veg Burger",
+        "119",
+        "",
+        "",
+        "Golden veg patty with cheddar, lettuce and mayo."
+      ],
+      [
+        "Aaloo Tikki Burger",
+        "79",
+        "",
+        "",
+        "Crisp spiced potato patty with chutney mayo and fresh salad."
+      ],
+      [
+        "Jumbo Chicken Burger",
+        "179",
+        "",
+        "",
+        "Thick chicken patty, cheese and pickles in a toasted bun."
+      ],
+      [
+        "Chicken Tikka Burger",
+        "159",
+        "",
+        "",
+        "Smoky chicken tikka patty with mint mayo and onions."
+      ],
+      [
+        "Crispy Chicken Burger",
+        "159",
+        "",
+        "",
+        "Crisp-fried chicken fillet with lettuce and spicy mayo."
+      ],
+      [
+        "Classic Cheese Chicken",
+        "139",
+        "",
+        "",
+        "Juicy grilled chicken, cheddar and garlic mayo."
+      ],
+      [
+        "Simply Chicken",
+        "99",
+        "",
+        "",
+        "Lightly seasoned chicken patty with lettuce and mayo for a classic bite."
+      ]
+    ]
+  },
+  {
+    "cat": "Sandwich & Wrap",
+    "items": [
+      [
+        "Creamy Mushroom",
+        "149/169",
+        "",
+        "",
+        "Sautéed mushrooms in garlic cream stuffed into toasted bread."
+      ],
+      [
+        "Spicy Paneer Tikka",
+        "139/159",
+        "",
+        "",
+        "Paneer tikka cubes with peppers, onions and mint mayo."
+      ],
+      [
+        "Corn Cheese",
+        "129/149",
+        "",
+        "",
+        "Sweet corn and melted cheese with herbs in a grilled sandwich."
+      ],
+      [
+        "Veggies Overloaded",
+        "99/119",
+        "",
+        "",
+        "Seasonal veggies, olives and cheese packed into whole wheat bread."
+      ],
+      [
+        "Paneer Basic",
+        "89/109",
+        "",
+        "",
+        "Paneer, onions and house spice mix in a simple toasted sandwich."
+      ],
+      [
+        "Veg Basic",
+        "69/89",
+        "",
+        "",
+        "Fresh veggies, lettuce and chutney in a light, crisp sandwich."
+      ],
+      [
+        "Crispy Chicken Popcorn",
+        "149/169",
+        "",
+        "",
+        "Crunchy chicken popcorn wrapped with slaw and spicy mayo."
+      ],
+      [
+        "Chicken Salami",
+        "149/169",
+        "",
+        "",
+        "Chicken salami, cheese and mustard in a grilled sandwich."
+      ],
+      [
+        "Chicken Sausage",
+        "149/169",
+        "",
+        "",
+        "Chicken sausage slices with caramelised onions and cheese."
+      ],
+      [
+        "Chicken Keema Masala",
+        "149/169",
+        "",
+        "",
+        "Spiced minced chicken, onions and cheese in a toasty wrap."
+      ],
+      [
+        "BBQ Chicken",
+        "149/169",
+        "",
+        "",
+        "BBQ glazed chicken shreds with pickles and cheddar."
+      ],
+      [
+        "Spicy Chicken Tikka",
+        "139/159",
+        "",
+        "",
+        "Fiery chicken tikka with peppers and cooling mint yogurt."
+      ],
+      [
+        "Egg Chicken",
+        "129/149",
+        "",
+        "",
+        "Scrambled egg and chicken chunks tossed in creamy mayo."
+      ],
+      [
+        "Chicken Cheese",
+        "99/119",
+        "",
+        "",
+        "Melted cheese over seasoned chicken strips in toasted bread."
+      ],
+      [
+        "Chicken Basic",
+        "89/109",
+        "",
+        "",
+        "Simple chicken filling with lettuce, onion and mayo."
+      ],
+      [
+        "Egg Mayo",
+        "79/99",
+        "",
+        "",
+        "Classic egg mayo salad with herbs in soft bread."
+      ]
+    ]
+  },
+  {
+    "cat": "Small Bites",
+    "items": [
+      [
+        "Crispy Chilli Baby Corn",
+        "149",
+        "",
+        "",
+        "Baby corn fried crisp and tossed in spicy chilli sauce."
+      ],
+      [
+        "Crispy Cheese Ball (5pcs)",
+        "149",
+        "",
+        "",
+        "Cheesy potato balls crumb-fried till golden."
+      ],
+      [
+        "Cheesy Fries with Chipotle",
+        "149",
+        "",
+        "",
+        "French fries smothered in cheese sauce and chipotle mayo."
+      ],
+      [
+        "Kuhlhad Pizza (Veg/Chicken)",
+        "99/119",
+        "",
+        "",
+        "Clay-pot baked pizza loaded with cheese and your choice of topping."
+      ],
+      [
+        "Potato Wedges Salsa (10pcs)",
+        "119",
+        "",
+        "",
+        "Seasoned wedges served with tangy house salsa."
+      ],
+      [
+        "Cheese Garlic Bread",
+        "79",
+        "",
+        "",
+        "Buttery garlic bread topped with melted mozzarella."
+      ],
+      [
+        "French Fries (R/M)",
+        "79/99",
+        "",
+        "",
+        "Crisp salted fries in regular or medium portions."
+      ],
+      [
+        "Fish Finger (Basa/Vetki) (6pcs)",
+        "199/259",
+        "",
+        "",
+        "Crunchy crumbed fish fingers served with tartar dip."
+      ],
+      [
+        "Fish Fry & Chips (Basa/Vetki)",
+        "169/229",
+        "",
+        "",
+        "Kolkata-style fish fry paired with fries and mustard."
+      ],
+      [
+        "Cheesy Chicken Chizza",
+        "149",
+        "",
+        "",
+        "Crustless chicken base topped with pizza sauce and cheese."
+      ],
+      [
+        "Chicken Sausage Fry (4pcs)",
+        "149",
+        "",
+        "",
+        "Pan-fried chicken sausages tossed with herbs."
+      ],
+      [
+        "Chicken Nuggets (6pcs)",
+        "159",
+        "",
+        "",
+        "Golden chicken nuggets with house dip."
+      ],
+      [
+        "Crispy Chicken Wings (2pcs)",
+        "99/139",
+        "",
+        "",
+        "Double-fried wings glazed in spicy sauce."
+      ],
+      [
+        "Crispy Chicken Popcorn (10pcs)",
+        "99/139",
+        "",
+        "",
+        "Bite-sized crispy chicken with peri peri sprinkle."
+      ],
+      [
+        "Crispy Chicken Strips (5pcs)",
+        "99/139",
+        "",
+        "",
+        "Panko-coated chicken strips with chipotle mayo."
+      ]
+    ]
+  },
+  {
+    "cat": "Maggi",
+    "items": [
+      [
+        "Corn Cheese Maggi",
+        "99",
+        "",
+        "",
+        "Maggi noodles tossed with sweet corn and gooey cheese."
+      ],
+      [
+        "Cheesy Whizzy Maggi",
+        "99",
+        "",
+        "",
+        "Extra cheesy Maggi finished with chilli flakes."
+      ],
+      [
+        "Veg Maggi",
+        "59",
+        "",
+        "",
+        "Loaded with sautéed vegetables and house masala."
+      ],
+      [
+        "Plain Maggi",
+        "49",
+        "",
+        "",
+        "Classic comfort Maggi cooked to perfection."
+      ],
+      [
+        "Egg Chicken Maggi",
+        "89",
+        "",
+        "",
+        "Maggi tossed with chicken bits and fluffy scrambled egg."
+      ],
+      [
+        "Chicken Maggi",
+        "79",
+        "",
+        "",
+        "Savory chicken stock infused Maggi noodles."
+      ],
+      [
+        "Egg Maggi",
+        "69",
+        "",
+        "",
+        "Maggi noodles enriched with soft scrambled eggs."
+      ]
+    ]
+  },
+  {
+    "cat": "Momo (8 pcs)",
+    "items": [
+      [
+        "Veg (Steam/Fry/PanFry)",
+        "79/79/99",
+        "",
+        "",
+        "Choose your style for veggie momos served with spicy chutney."
+      ],
+      [
+        "Special Chicken (Steam/Fry/PanFry)",
+        "129/129/159",
+        "",
+        "",
+        "Juicy chicken momos with flavour-packed filling and dips."
+      ],
+      [
+        "Basic Chicken (Steam/Fry/PanFry)",
+        "99/99/129",
+        "",
+        "",
+        "Classic chicken momos steamed, fried or pan-fried to order."
+      ]
+    ]
+  },
+  {
+    "cat": "Combos",
+    "items": [
+      [
+        "Shaam-E-Snack Combo 1",
+        "Chicken Cheese Sandwich + Masala Tea (M) — 129",
+        "",
+        "",
+        "Veg grilled sandwich, fries and iced tea combo."
+      ],
+      [
+        "Shaam-E-Snack Combo 2",
+        "Corn Cheese Sandwich + Masala Tea (M) — 149",
+        "",
+        "",
+        "Paneer tikka sandwich with fries and cold coffee."
+      ],
+      [
+        "Shaam-E-Snack Combo 3",
+        "2 Chicken Tikka Sandwich + 2 Masala Tea — 299",
+        "",
+        "",
+        "Chicken sandwich, fries and iced tea set."
+      ],
+      [
+        "Shaam-E-Snack Combo 4",
+        "2 Chicken Basic Sandwich + Fries (M) + 2 Coke (250ml) — 329",
+        "",
+        "",
+        "Chicken tikka wrap, fries and cold coffee."
+      ],
+      [
+        "Crunch Bucket 1",
+        "Wings(2) + Popcorn(10) + Strips(5) + Any dip — 299",
+        "",
+        "",
+        "Veg popcorn, fries and dip for two snackers."
+      ],
+      [
+        "Crunch Bucket 2",
+        "Wings(4) + Popcorn(20) + Strips(10) + 2 Dips — 599",
+        "",
+        "",
+        "Chicken popcorn, fries and creamy dip bucket."
+      ],
+      [
+        "Chakhna Box 1",
+        "Wedges(10) + Fries(R) + Peanut mix + dips — 199",
+        "",
+        "",
+        "Veg munchies mix with peanuts, fries and masala corn."
+      ],
+      [
+        "Chakhna Box 2",
+        "Wings(3) + Popcorn(6) + mix + dips — 299",
+        "",
+        "",
+        "Chicken nuggets, fries and savoury munchies box."
+      ],
+      [
+        "Chakhna Box 3",
+        "Cheese Ball(3)+Wedges(5)+Fries(R)+Salad+mix+dips — 299",
+        "",
+        "",
+        "Fish fingers, fries and spicy peanuts platter."
+      ],
+      [
+        "Chakhna Box 4",
+        "Basa Fry(1) + Popcorn(6) + Sausage Fry + Fries(M) + mix + dips — 399",
+        "",
+        "",
+        "Chicken wings, fries and masala papad pairing."
+      ],
+      [
+        "Bite & Sip Trio 1",
+        "Crispy Chicken Burger + Fries(R) + Coke — 249",
+        "",
+        "",
+        "Veg sandwich, fries and choice of cold beverage."
+      ],
+      [
+        "Bite & Sip Trio 2",
+        "Veg Jumbo Burger + Fries(R) + Coke — 249",
+        "",
+        "",
+        "Chicken burger, fries and chilled drink trio."
+      ],
+      [
+        "Bite & Sip Trio 3",
+        "Jumbo Chicken Burger + Classic Cheese Chicken + Fries(M) + 2 Coke — 399",
+        "",
+        "",
+        "Wrap, fries and cold coffee for an easy meal."
+      ]
+    ]
+  },
+  {
+    "cat": "Drinks",
+    "items": [
+      [
+        "Milkshakes: Brownie | KitKat | Oreo | Caramel | Chocolate",
+        "139–159",
+        "",
+        "",
+        "Thick milkshakes blended with premium mix-ins and ice cream."
+      ],
+      [
+        "Mocktails: Sunset | Shirley Temple | Mango | Litchi | Blue Lagoon | Virgin Mojito",
+        "99–129",
+        "",
+        "",
+        "Refreshing handcrafted mocktails in six vibrant flavours."
+      ]
+    ]
+  },
+  {
+    "cat": "Tea • Coffee • Dessert",
+    "items": [
+      [
+        "Teas (R/M/L): Milk, Ginger, Elaichi, Kesar, Chocolate, Special Masala",
+        "10–49",
+        "",
+        "",
+        "Brewed-to-order teas in comforting classic and masala flavours."
+      ],
+      [
+        "Coffee: Black, Milk, Americano, Cold, Latte, Mocha, Caramel Cold Coffee",
+        "29–129",
+        "",
+        "",
+        "Barista-style coffees served hot or iced with custom brews."
+      ],
+      [
+        "Dessert: Brownie • Choco Lava Cake • Brownie w/ Ice‑Cream",
+        "99–129",
+        "",
+        "",
+        "Indulgent desserts from gooey lava cake to fudgy brownie a la mode."
+      ]
+    ]
+  },
+  {
+    "cat": "Healthy & Breakfast",
+    "items": [
+      [
+        "Dalia • Oats Smoothie • Masala Oats",
+        "59",
+        "",
+        "",
+        "Wholesome grains served as porridge, smoothie or spiced oats."
+      ],
+      [
+        "Poha • Upma",
+        "49",
+        "",
+        "",
+        "Light breakfast staples tempered with curry leaves and veggies."
+      ],
+      [
+        "Scrambled Egg",
+        "79",
+        "",
+        "",
+        "Softly scrambled eggs finished with butter and herbs."
+      ],
+      [
+        "Egg Poach",
+        "20/35",
+        "",
+        "",
+        "Perfectly poached eggs ready for toast or bowls."
+      ],
+      [
+        "Toast & Eggs: Cheese/Fluffy/Masala Veg/Bread/Double/Single • Butter/Jam Toast",
+        "30–79",
+        "",
+        "",
+        "Customisable toast-and-egg platter with spreads and add-ons."
+      ]
+    ]
+  }
+];
 
 data.forEach(sec => {
   const el = document.createElement('div');
