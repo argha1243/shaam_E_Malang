@@ -139,6 +139,7 @@
       <button id="verifyOtpButton" class="w-full px-4 py-3 rounded-2xl bg-[color:var(--brand)] text-white font-semibold">Verify &amp; Continue</button>
       <button id="resendOtpButton" class="w-full px-4 py-3 rounded-2xl border border-neutral-300 text-sm font-semibold hover:border-[color:var(--brand)]">Resend OTP</button>
     </div>
+    <div id="recaptchaContainer" class="hidden"></div>
   </div>
 </div>
 
@@ -237,6 +238,9 @@
   function show(n){slides.forEach((s,i)=>s.style.opacity=(i===n)?'1':'0');}
   show(0); setInterval(()=>{idx=(idx+1)%slides.length; show(idx);},3500);
 </script>
+<script src="assets/js/app-config.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 function slugify(text) {
@@ -415,12 +419,20 @@ window.SEM_MENU = menuData;
   });
 </script>
 <script>
+  const appConfig = window.APP_CONFIG || {};
+  const firebaseConfig = appConfig.firebase || {};
+  const razorpayConfig = appConfig.razorpay || {};
+  const notificationConfig = appConfig.notifications || {};
+  const contactConfig = appConfig.contact || {};
+
   const state = {
     cart: [],
     isAuthenticated: false,
     phone: '',
     pendingPhone: '',
-    generatedOtp: ''
+    otpConfirmation: null,
+    firebaseAuth: null,
+    recaptchaVerifier: null
   };
 
   const AUTH_STORAGE_KEY = 'sem_auth_state_v1';
@@ -433,6 +445,24 @@ window.SEM_MENU = menuData;
     el.innerHTML = value;
     return el.value;
   };
+
+  function setButtonLoading(button, isLoading, loadingText = 'Please wait…') {
+    if (!button) return;
+    if (isLoading) {
+      if (!button.dataset.originalText) {
+        button.dataset.originalText = button.textContent;
+      }
+      button.disabled = true;
+      button.textContent = loadingText;
+      button.classList.add('opacity-70', 'cursor-not-allowed');
+    } else {
+      button.disabled = false;
+      if (button.dataset.originalText) {
+        button.textContent = button.dataset.originalText;
+      }
+      button.classList.remove('opacity-70', 'cursor-not-allowed');
+    }
+  }
   function showToast(message) {
     if (!toastEl) return;
     const content = toastEl.querySelector('div');
@@ -464,6 +494,9 @@ window.SEM_MENU = menuData;
   const mobileOrderButton = document.getElementById('mobileOrderButton');
   const startOrderButton = document.getElementById('startOrderButton');
   const showCartButton = document.getElementById('showCartButton');
+  const sendOtpButton = document.getElementById('sendOtpButton');
+  const verifyOtpButton = document.getElementById('verifyOtpButton');
+  const resendOtpButton = document.getElementById('resendOtpButton');
   const cartFab = document.getElementById('cartFab');
   const cartDrawer = document.getElementById('cartDrawer');
   const cartItemsEl = document.getElementById('cartItems');
@@ -610,46 +643,138 @@ window.SEM_MENU = menuData;
     authPhoneStep.classList.remove('hidden');
     authOtpStep.classList.add('hidden');
     authPhoneInput.value = state.pendingPhone || state.phone || '';
+    if (otpHint) {
+      otpHint.textContent = '';
+    }
+    authOtpInput.value = '';
     authPhoneInput.focus();
   }
 
   function closeAuthModal() {
     if (!authModal) return;
     authModal.classList.add('hidden');
-    state.generatedOtp = '';
+    state.otpConfirmation = null;
+    if (state.recaptchaVerifier && typeof state.recaptchaVerifier.clear === 'function') {
+      try {
+        state.recaptchaVerifier.clear();
+      } catch (err) {
+        console.warn('Unable to clear reCAPTCHA instance', err);
+      }
+    }
+    state.recaptchaVerifier = null;
   }
 
-  function sendOtp() {
+  async function initFirebaseAuth() {
+    if (!window.firebase) {
+      showToast('Phone sign-in is currently unavailable.');
+      return null;
+    }
+    if (!firebaseConfig || !firebaseConfig.apiKey) {
+      showToast('Phone sign-in is not configured yet.');
+      return null;
+    }
+    if (!state.firebaseAuth) {
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        state.firebaseAuth = firebase.auth();
+        state.firebaseAuth.useDeviceLanguage();
+      } catch (err) {
+        console.error('Failed to initialise Firebase', err);
+        showToast('Unable to start phone login. Please try again later.');
+        return null;
+      }
+    }
+    return state.firebaseAuth;
+  }
+
+  function buildRecaptchaVerifier() {
+    if (!state.firebaseAuth) {
+      return null;
+    }
+    if (state.recaptchaVerifier && typeof state.recaptchaVerifier.clear === 'function') {
+      try {
+        state.recaptchaVerifier.clear();
+      } catch (err) {
+        console.warn('Unable to clear previous reCAPTCHA instance', err);
+      }
+    }
+    state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
+      size: 'invisible'
+    });
+    return state.recaptchaVerifier;
+  }
+
+  async function sendOtp(triggerButton = sendOtpButton) {
     const phone = sanitizePhone(authPhoneInput.value);
     if (phone.length !== 10) {
       showToast('Enter a valid 10 digit phone number.');
       return;
     }
+    const auth = await initFirebaseAuth();
+    if (!auth) {
+      return;
+    }
+    const verifier = buildRecaptchaVerifier();
+    if (!verifier) {
+      showToast('Unable to start verification. Refresh and try again.');
+      return;
+    }
+    state.otpConfirmation = null;
+    setButtonLoading(triggerButton, true, 'Sending…');
     state.pendingPhone = phone;
-    state.generatedOtp = String(Math.floor(100000 + Math.random() * 900000));
-    authPhoneStep.classList.add('hidden');
-    authOtpStep.classList.remove('hidden');
-    otpHint.textContent = `OTP sent to +91 ${phone}. Enter ${state.generatedOtp} to continue (demo mode).`;
-    authOtpInput.value = '';
-    authOtpInput.focus();
+    try {
+      const confirmation = await auth.signInWithPhoneNumber(`+91${phone}`, verifier);
+      state.otpConfirmation = confirmation;
+      authPhoneStep.classList.add('hidden');
+      authOtpStep.classList.remove('hidden');
+      otpHint.textContent = `OTP sent to +91 ${phone}. Enter the 6 digit code to continue.`;
+      authOtpInput.value = '';
+      authOtpInput.focus();
+      showToast('OTP sent. Please check your phone.');
+    } catch (err) {
+      console.error('Failed to send OTP', err);
+      let message = 'Unable to send OTP. Please try again.';
+      if (err && err.message) {
+        message = err.message.replace('Firebase:', '').trim();
+      }
+      showToast(message);
+      state.otpConfirmation = null;
+    } finally {
+      setButtonLoading(triggerButton, false);
+    }
   }
 
-  function verifyOtp() {
+  async function verifyOtp() {
     const entered = (authOtpInput.value || '').trim();
     if (entered.length !== 6) {
       showToast('OTP must be 6 digits.');
       return;
     }
-    if (entered !== state.generatedOtp) {
-      showToast('Invalid OTP. Please try again.');
+    if (!state.otpConfirmation) {
+      showToast('Please request a new OTP to continue.');
       return;
     }
-    state.phone = state.pendingPhone;
-    state.isAuthenticated = true;
-    persistAuth();
-    applyAuthState();
-    showToast('Logged in successfully.');
-    closeAuthModal();
+    setButtonLoading(verifyOtpButton, true, 'Verifying…');
+    try {
+      await state.otpConfirmation.confirm(entered);
+      state.phone = state.pendingPhone;
+      state.isAuthenticated = true;
+      persistAuth();
+      applyAuthState();
+      showToast('Logged in successfully.');
+      closeAuthModal();
+    } catch (err) {
+      console.error('OTP verification failed', err);
+      let message = 'Invalid OTP. Please try again.';
+      if (err && err.message) {
+        message = err.message.replace('Firebase:', '').trim();
+      }
+      showToast(message);
+    } finally {
+      setButtonLoading(verifyOtpButton, false);
+    }
   }
 
   if (loginButton) {
@@ -658,6 +783,11 @@ window.SEM_MENU = menuData;
         if (confirm('Log out from this device?')) {
           state.isAuthenticated = false;
           state.phone = '';
+          state.pendingPhone = '';
+          state.otpConfirmation = null;
+          if (state.firebaseAuth && typeof state.firebaseAuth.signOut === 'function') {
+            state.firebaseAuth.signOut().catch(err => console.warn('Firebase sign-out failed', err));
+          }
           localStorage.removeItem(AUTH_STORAGE_KEY);
           applyAuthState();
           showToast('You have been logged out.');
@@ -710,12 +840,13 @@ window.SEM_MENU = menuData;
   document.querySelectorAll('[data-close-cart]').forEach(btn => btn.addEventListener('click', () => toggleCart(false)));
   document.querySelectorAll('[data-close-auth]').forEach(btn => btn.addEventListener('click', closeAuthModal));
 
-  document.getElementById('sendOtpButton').addEventListener('click', sendOtp);
-  document.getElementById('verifyOtpButton').addEventListener('click', verifyOtp);
-  document.getElementById('resendOtpButton').addEventListener('click', () => {
-    state.generatedOtp = '';
-    sendOtp();
-  });
+  sendOtpButton && sendOtpButton.addEventListener('click', () => sendOtp(sendOtpButton));
+  verifyOtpButton && verifyOtpButton.addEventListener('click', verifyOtp);
+  if (resendOtpButton) {
+    resendOtpButton.addEventListener('click', () => {
+      sendOtp(resendOtpButton);
+    });
+  }
 
   authModal && authModal.addEventListener('click', (event) => {
     if (event.target === authModal) {
@@ -723,8 +854,55 @@ window.SEM_MENU = menuData;
     }
   });
 
+  async function createRazorpayOrder(amountInPaise, notes = {}) {
+    if (!razorpayConfig.createOrderUrl) {
+      return null;
+    }
+    try {
+      const response = await fetch(razorpayConfig.createOrderUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          amount: amountInPaise,
+          currency: 'INR',
+          notes
+        })
+      });
+      if (!response.ok) {
+        throw new Error(`Order creation failed with status ${response.status}`);
+      }
+      return await response.json();
+    } catch (err) {
+      console.error('Failed to create Razorpay order', err);
+      throw err;
+    }
+  }
+
+  function getOwnerWhatsappNumber() {
+    const raw = contactConfig.whatsappNumber || '917980104112';
+    const digits = String(raw).replace(/\D/g, '');
+    return digits || '917980104112';
+  }
+
+  function triggerOrderWebhook(payload) {
+    if (!notificationConfig.orderWebhookUrl) {
+      return;
+    }
+    try {
+      fetch(notificationConfig.orderWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).catch(err => {
+        console.warn('Order webhook failed', err);
+      });
+    } catch (err) {
+      console.warn('Unable to trigger webhook', err);
+    }
+  }
+
   if (payButton) {
-    payButton.addEventListener('click', () => {
+    payButton.addEventListener('click', async () => {
       if (!state.isAuthenticated) {
         openAuthModal();
         return;
@@ -759,12 +937,42 @@ window.SEM_MENU = menuData;
         return;
       }
 
+      const keyId = razorpayConfig.keyId;
+      if (!keyId) {
+        showToast('Razorpay is not configured. Please contact the cafe to place your order.');
+        return;
+      }
+
+      const amountInPaise = Math.max(1, Math.round(amount * 100));
+      const notesPayload = {
+        address: addressBlock,
+        order: orderLines,
+        customerName: name,
+        customerPhone: `+91${phone}`
+      };
+
+      let orderResponse = null;
+      setButtonLoading(payButton, true, 'Connecting…');
+      try {
+        if (razorpayConfig.createOrderUrl) {
+          orderResponse = await createRazorpayOrder(amountInPaise, notesPayload);
+        }
+      } catch (err) {
+        showToast('Unable to start payment. Please try again.');
+        setButtonLoading(payButton, false);
+        return;
+      }
+
+      const finalAmount = orderResponse && orderResponse.amount ? orderResponse.amount : amountInPaise;
+      const orderId = orderResponse && (orderResponse.orderId || orderResponse.id) ? (orderResponse.orderId || orderResponse.id) : undefined;
+
       const options = {
-        key: 'rzp_test_1234567890abcd',
-        amount: Math.round(amount * 100),
+        key: keyId,
+        amount: finalAmount,
         currency: 'INR',
         name: 'Shaam-E-Malang Café',
         description: 'Cafe Order Payment',
+        order_id: orderId,
         prefill: {
           name,
           email,
@@ -777,7 +985,18 @@ window.SEM_MENU = menuData;
         handler: function (response) {
           const paymentId = response.razorpay_payment_id;
           showToast('Payment successful! Sending order details.');
-          notifyOwner({ name, phone, email, address: addressBlock, orderLines, amount, paymentId });
+          notifyOwner({ name, phone, email, address: addressBlock, orderLines, amount: finalAmount / 100, paymentId });
+          triggerOrderWebhook({
+            name,
+            phone,
+            email,
+            address: addressBlock,
+            orderLines,
+            amount: finalAmount / 100,
+            paymentId,
+            provider: 'razorpay',
+            orderId: response.razorpay_order_id || orderId || null
+          });
           if (orderStatusEl) {
             orderStatusEl.innerHTML = `<div class="rounded-2xl bg-green-50 text-green-700 px-3 py-3">Payment received. Your order has been shared with the kitchen!</div>`;
           }
@@ -789,13 +1008,27 @@ window.SEM_MENU = menuData;
         }
       };
 
-      const rzp = new Razorpay(options);
-      rzp.open();
+      try {
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function (response) {
+          console.warn('Payment failed', response.error);
+          showToast('Payment failed. Please try again or choose another method.');
+          if (orderStatusEl) {
+            orderStatusEl.innerHTML = `<div class="rounded-2xl bg-red-50 text-red-700 px-3 py-3">Payment failed. You can try again or place the order on WhatsApp.</div>`;
+          }
+        });
+        rzp.open();
+      } catch (err) {
+        console.error('Unable to open Razorpay checkout', err);
+        showToast('Unable to open Razorpay checkout. Please try again later.');
+      } finally {
+        setButtonLoading(payButton, false);
+      }
     });
   }
 
   function notifyOwner({ name, phone, email, address, orderLines, amount, paymentId }) {
-    const ownerNumber = '917980104112';
+    const ownerNumber = getOwnerWhatsappNumber();
     const messageLines = [
       'New order received!',
       `Name: ${name}`,
