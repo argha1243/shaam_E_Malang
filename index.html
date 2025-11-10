@@ -425,6 +425,23 @@ window.SEM_MENU = menuData;
   const notificationConfig = appConfig.notifications || {};
   const contactConfig = appConfig.contact || {};
 
+  const REQUIRED_FIREBASE_KEYS = ['apiKey', 'authDomain', 'projectId', 'appId', 'messagingSenderId'];
+
+  function isPlaceholderFirebaseValue(value) {
+    if (typeof value !== 'string') {
+      return !value;
+    }
+    const trimmed = value.trim();
+    return !trimmed || /^YOUR_/i.test(trimmed);
+  }
+
+  function hasValidFirebaseConfig(config) {
+    if (!config) {
+      return false;
+    }
+    return !REQUIRED_FIREBASE_KEYS.some((key) => isPlaceholderFirebaseValue(config[key]));
+  }
+
   const state = {
     cart: [],
     isAuthenticated: false,
@@ -669,8 +686,9 @@ window.SEM_MENU = menuData;
       showToast('Phone sign-in is currently unavailable.');
       return null;
     }
-    if (!firebaseConfig || !firebaseConfig.apiKey) {
-      showToast('Phone sign-in is not configured yet.');
+    if (!hasValidFirebaseConfig(firebaseConfig)) {
+      console.warn('Firebase configuration is missing or still contains placeholder values.');
+      showToast('Phone sign-in is not configured. Update the Firebase keys in assets/js/app-config.js.');
       return null;
     }
     if (!state.firebaseAuth) {

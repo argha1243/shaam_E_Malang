@@ -6,8 +6,8 @@ This repository contains the static ordering experience for Shaam-E-Malang Café
 
 1. Install a simple static server (for example `npm install -g serve`).
 2. Configure the integration credentials in [`assets/js/app-config.js`](assets/js/app-config.js).
-   - The repository ships with a **demo Firebase project** (`shaam-e-malang-demo`) that is ready for local OTP testing.
-   - Replace the demo keys with your own production credentials before going live.
+   - Replace every `YOUR_FIREBASE_*` placeholder with the values from your Firebase console.
+   - Update the Razorpay keys, webhook URL and WhatsApp number as required.
 3. Run `serve .` (or any static server) from the repository root and open the reported URL in your browser.
 
 ## Phone OTP login
@@ -15,10 +15,10 @@ This repository contains the static ordering experience for Shaam-E-Malang Café
 The login modal uses Firebase Phone Authentication to deliver OTP codes. To enable it:
 
 1. Create a Firebase project and enable **Phone** as a Sign-in method.
-   - To try the experience immediately, you can reuse the included demo project configuration (`shaam-e-malang-demo`).
 2. In the Firebase console, add your domain to the authorised domains list (including `localhost` for local development).
-3. Copy the project credentials and replace the demo values in `window.APP_CONFIG.firebase` inside `assets/js/app-config.js`.
+3. Copy the project credentials and replace the placeholder values in `window.APP_CONFIG.firebase` inside `assets/js/app-config.js`.
 4. (Optional) Create test phone numbers in Firebase for QA without incurring SMS costs.
+5. If the Firebase keys remain unchanged (for example they still start with `YOUR_`), the UI will surface a toast message and phone sign-in will stay disabled.
 
 Once the configuration is in place, customers will receive SMS OTP codes from Firebase and can authenticate before creating an order.
 
