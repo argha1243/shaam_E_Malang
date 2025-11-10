@@ -653,7 +653,6 @@ window.SEM_MENU = menuData;
   const authPhoneInput = document.getElementById('authPhoneInput');
   const authOtpInput = document.getElementById('authOtpInput');
   const otpHint = document.getElementById('otpHint');
-  let recaptchaContainer = document.getElementById('recaptchaContainer');
 
   function openAuthModal() {
     if (!authModal) return;
@@ -680,7 +679,6 @@ window.SEM_MENU = menuData;
       }
     }
     state.recaptchaVerifier = null;
-    resetRecaptchaContainer();
   }
 
   async function initFirebaseAuth() {
@@ -709,47 +707,31 @@ window.SEM_MENU = menuData;
     return state.firebaseAuth;
   }
 
-  function resetRecaptchaContainer() {
-    if (!recaptchaContainer) {
-      recaptchaContainer = document.getElementById('recaptchaContainer');
-    }
-    if (!recaptchaContainer || !recaptchaContainer.parentNode) {
-      return null;
-    }
-    const freshContainer = recaptchaContainer.cloneNode(false);
-    recaptchaContainer.parentNode.replaceChild(freshContainer, recaptchaContainer);
-    recaptchaContainer = freshContainer;
-    return recaptchaContainer;
-  }
-
-  async function buildRecaptchaVerifier() {
+  async function ensureRecaptchaVerifier() {
     if (!state.firebaseAuth) {
       return null;
     }
-    if (state.recaptchaVerifier && typeof state.recaptchaVerifier.clear === 'function') {
-      try {
-        state.recaptchaVerifier.clear();
-      } catch (err) {
-        console.warn('Unable to clear previous reCAPTCHA instance', err);
-      }
+    if (state.recaptchaVerifier) {
+      return state.recaptchaVerifier;
     }
-    const container = resetRecaptchaContainer();
+    const container = document.getElementById('recaptchaContainer');
     if (!container) {
       console.error('Missing reCAPTCHA container element');
       showToast('Unable to start verification. Refresh and try again.');
       return null;
     }
     try {
-      state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(container, {
+      const verifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
         size: 'invisible',
         callback: () => {
-          // noop – the promise returned from verify() is used instead
+          // Firebase handles the resolved token internally via signInWithPhoneNumber
         },
         'expired-callback': () => {
           showToast('reCAPTCHA expired. Please try again.');
         }
       });
-      await state.recaptchaVerifier.render();
+      await verifier.render();
+      state.recaptchaVerifier = verifier;
     } catch (err) {
       console.error('Failed to initialise reCAPTCHA', err);
       showToast('Unable to start verification. Refresh and try again.');
@@ -768,7 +750,7 @@ window.SEM_MENU = menuData;
     if (!auth) {
       return;
     }
-    const verifier = await buildRecaptchaVerifier();
+    const verifier = await ensureRecaptchaVerifier();
     if (!verifier) {
       showToast('Unable to start verification. Refresh and try again.');
       return;
@@ -777,12 +759,6 @@ window.SEM_MENU = menuData;
     setButtonLoading(triggerButton, true, 'Sending…');
     state.pendingPhone = phone;
     try {
-      try {
-        await verifier.verify();
-      } catch (recaptchaErr) {
-        console.error('reCAPTCHA challenge failed', recaptchaErr);
-        throw new Error('Please complete the reCAPTCHA challenge to continue.');
-      }
       const confirmation = await auth.signInWithPhoneNumber(`+91${phone}`, verifier);
       state.otpConfirmation = confirmation;
       authPhoneStep.classList.add('hidden');
@@ -799,6 +775,8 @@ window.SEM_MENU = menuData;
           message = 'The Firebase API key is invalid or this domain is not authorised. Update assets/js/app-config.js with your credentials.';
         } else if (err.code === 'auth/operation-not-allowed' || err.code === 'auth/admin-restricted-operation') {
           message = 'Phone sign-in is disabled for this Firebase project. Enable Phone Authentication and ensure billing is active in Firebase.';
+        } else if (err.code === 'auth/captcha-check-failed' || err.code === 'auth/missing-app-credential') {
+          message = 'reCAPTCHA verification failed. Please try again.';
         } else if (err.message) {
           message = err.message.replace('Firebase:', '').trim();
         }
