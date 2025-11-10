@@ -7,11 +7,11 @@ window.APP_CONFIG = {
    * a clear message in the UI instructing you to supply valid credentials.
    */
   firebase: {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-    projectId: "YOUR_FIREBASE_PROJECT_ID",
-    appId: "YOUR_FIREBASE_APP_ID",
-    messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    apiKey: "AIzaSyCria0XkWZf8qX3prUipN5Pljz09iqdmRg",
+    authDomain: "127.0.0.1:5000",
+    projectId: "shaam-e-malang",
+    appId: "1:756333007367:web:3f3cce9430f0cf269710a2",
+    messagingSenderId: "756333007367",
   },
 
   /**
