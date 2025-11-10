@@ -6,18 +6,20 @@ This repository contains the static ordering experience for Shaam-E-Malang Café
 
 1. Install a simple static server (for example `npm install -g serve`).
 2. Configure the integration credentials in [`assets/js/app-config.js`](assets/js/app-config.js).
+   - Supply your Firebase project credentials so OTP sign-in can run. Placeholder values intentionally disable login until you enter real keys.
+   - Update the Razorpay keys, webhook URL and WhatsApp number as required.
 3. Run `serve .` (or any static server) from the repository root and open the reported URL in your browser.
 
 ## Phone OTP login
 
-The login modal uses Firebase Phone Authentication to deliver OTP codes. To enable it:
+The login modal uses Firebase Phone Authentication to deliver OTP codes. To hook it up to your own Firebase project:
 
 1. Create a Firebase project and enable **Phone** as a Sign-in method.
 2. In the Firebase console, add your domain to the authorised domains list (including `localhost` for local development).
-3. Copy the project credentials and replace the placeholders in `window.APP_CONFIG.firebase` inside `assets/js/app-config.js`.
+3. Copy the project credentials and overwrite the placeholder values in `window.APP_CONFIG.firebase` inside `assets/js/app-config.js`.
 4. (Optional) Create test phone numbers in Firebase for QA without incurring SMS costs.
 
-Once the configuration is in place, customers will receive SMS OTP codes from Firebase and can authenticate before creating an order.
+Once your credentials are saved, customers will receive SMS OTP codes from Firebase and can authenticate before creating an order.
 
 ## Razorpay checkout
 
