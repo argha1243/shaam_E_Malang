@@ -776,6 +776,8 @@ window.SEM_MENU = menuData;
       if (err && typeof err === 'object') {
         if (err.code === 'auth/invalid-api-key' || err.code === 'auth/app-not-authorized') {
           message = 'The Firebase API key is invalid or this domain is not authorised. Update assets/js/app-config.js with your credentials.';
+        } else if (err.code === 'auth/operation-not-allowed' || err.code === 'auth/admin-restricted-operation') {
+          message = 'Phone sign-in is disabled for this Firebase project. Enable Phone Authentication and ensure billing is active in Firebase.';
         } else if (err.message) {
           message = err.message.replace('Firebase:', '').trim();
         }
