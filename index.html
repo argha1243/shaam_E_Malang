@@ -707,20 +707,36 @@ window.SEM_MENU = menuData;
     return state.firebaseAuth;
   }
 
-  function buildRecaptchaVerifier() {
+  async function ensureRecaptchaVerifier() {
     if (!state.firebaseAuth) {
       return null;
     }
-    if (state.recaptchaVerifier && typeof state.recaptchaVerifier.clear === 'function') {
-      try {
-        state.recaptchaVerifier.clear();
-      } catch (err) {
-        console.warn('Unable to clear previous reCAPTCHA instance', err);
-      }
+    if (state.recaptchaVerifier) {
+      return state.recaptchaVerifier;
     }
-    state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
-      size: 'invisible'
-    });
+    const container = document.getElementById('recaptchaContainer');
+    if (!container) {
+      console.error('Missing reCAPTCHA container element');
+      showToast('Unable to start verification. Refresh and try again.');
+      return null;
+    }
+    try {
+      const verifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
+        size: 'invisible',
+        callback: () => {
+          // Firebase handles the resolved token internally via signInWithPhoneNumber
+        },
+        'expired-callback': () => {
+          showToast('reCAPTCHA expired. Please try again.');
+        }
+      });
+      await verifier.render();
+      state.recaptchaVerifier = verifier;
+    } catch (err) {
+      console.error('Failed to initialise reCAPTCHA', err);
+      showToast('Unable to start verification. Refresh and try again.');
+      state.recaptchaVerifier = null;
+    }
     return state.recaptchaVerifier;
   }
 
@@ -734,7 +750,7 @@ window.SEM_MENU = menuData;
     if (!auth) {
       return;
     }
-    const verifier = buildRecaptchaVerifier();
+    const verifier = await ensureRecaptchaVerifier();
     if (!verifier) {
       showToast('Unable to start verification. Refresh and try again.');
       return;
@@ -757,6 +773,10 @@ window.SEM_MENU = menuData;
       if (err && typeof err === 'object') {
         if (err.code === 'auth/invalid-api-key' || err.code === 'auth/app-not-authorized') {
           message = 'The Firebase API key is invalid or this domain is not authorised. Update assets/js/app-config.js with your credentials.';
+        } else if (err.code === 'auth/operation-not-allowed' || err.code === 'auth/admin-restricted-operation') {
+          message = 'Phone sign-in is disabled for this Firebase project. Enable Phone Authentication and ensure billing is active in Firebase.';
+        } else if (err.code === 'auth/captcha-check-failed' || err.code === 'auth/missing-app-credential') {
+          message = 'reCAPTCHA verification failed. Please try again.';
         } else if (err.message) {
           message = err.message.replace('Firebase:', '').trim();
         }
