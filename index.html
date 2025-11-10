@@ -653,6 +653,7 @@ window.SEM_MENU = menuData;
   const authPhoneInput = document.getElementById('authPhoneInput');
   const authOtpInput = document.getElementById('authOtpInput');
   const otpHint = document.getElementById('otpHint');
+  let recaptchaContainer = document.getElementById('recaptchaContainer');
 
   function openAuthModal() {
     if (!authModal) return;
@@ -679,6 +680,7 @@ window.SEM_MENU = menuData;
       }
     }
     state.recaptchaVerifier = null;
+    resetRecaptchaContainer();
   }
 
   async function initFirebaseAuth() {
@@ -707,6 +709,19 @@ window.SEM_MENU = menuData;
     return state.firebaseAuth;
   }
 
+  function resetRecaptchaContainer() {
+    if (!recaptchaContainer) {
+      recaptchaContainer = document.getElementById('recaptchaContainer');
+    }
+    if (!recaptchaContainer || !recaptchaContainer.parentNode) {
+      return null;
+    }
+    const freshContainer = recaptchaContainer.cloneNode(false);
+    recaptchaContainer.parentNode.replaceChild(freshContainer, recaptchaContainer);
+    recaptchaContainer = freshContainer;
+    return recaptchaContainer;
+  }
+
   async function buildRecaptchaVerifier() {
     if (!state.firebaseAuth) {
       return null;
@@ -718,8 +733,14 @@ window.SEM_MENU = menuData;
         console.warn('Unable to clear previous reCAPTCHA instance', err);
       }
     }
+    const container = resetRecaptchaContainer();
+    if (!container) {
+      console.error('Missing reCAPTCHA container element');
+      showToast('Unable to start verification. Refresh and try again.');
+      return null;
+    }
     try {
-      state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
+      state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(container, {
         size: 'invisible',
         callback: () => {
           // noop – the promise returned from verify() is used instead
