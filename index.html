@@ -754,8 +754,12 @@ window.SEM_MENU = menuData;
     } catch (err) {
       console.error('Failed to send OTP', err);
       let message = 'Unable to send OTP. Please try again.';
-      if (err && err.message) {
-        message = err.message.replace('Firebase:', '').trim();
+      if (err && typeof err === 'object') {
+        if (err.code === 'auth/invalid-api-key' || err.code === 'auth/app-not-authorized') {
+          message = 'The Firebase API key is invalid or this domain is not authorised. Update assets/js/app-config.js with your credentials.';
+        } else if (err.message) {
+          message = err.message.replace('Firebase:', '').trim();
+        }
       }
       showToast(message);
       state.otpConfirmation = null;

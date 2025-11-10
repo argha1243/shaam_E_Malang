@@ -1,20 +1,17 @@
 window.APP_CONFIG = {
   /**
    * Firebase project configuration used for phone number sign-in.
-   * The defaults below point to a demo Firebase project that is preconfigured
-   * with Phone auth enabled so the OTP flow works out of the box.
+   * Update all of the keys below with the details from your Firebase console.
    *
-   * If you would like to use your own Firebase project, replace every value
-   * below with the credentials from your console.
+   * Leaving the placeholder values in place will disable OTP login and surface
+   * a clear message in the UI instructing you to supply valid credentials.
    */
   firebase: {
-    apiKey: "AIzaSyB8Gh0b1P5g4h8F8U4p2YQ5JjXs7nVf_1Y",
-    authDomain: "shaam-e-malang-demo.firebaseapp.com",
-    projectId: "shaam-e-malang-demo",
-    appId: "1:108768902547:web:79af3bbcc0123456789abc",
-    messagingSenderId: "108768902547",
-    storageBucket: "shaam-e-malang-demo.appspot.com",
-    measurementId: "G-5MALANG01",
+    apiKey: "YOUR_FIREBASE_API_KEY",
+    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
+    projectId: "YOUR_FIREBASE_PROJECT_ID",
+    appId: "YOUR_FIREBASE_APP_ID",
+    messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
   },
 
   /**
