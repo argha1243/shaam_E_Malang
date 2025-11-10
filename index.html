@@ -159,156 +159,207 @@ function slugify(text) {
     .replace(/\-\-+/g, '-')
     .replace(/^-+|-+$/g, '');
 }
+</script>
+<script src="assets/js/image-map.js"></script>
+<script src="assets/js/menu-data.js"></script>
+<script>
+(function () {
+  const accordion = document.getElementById('accordion');
+  const menuSource = Array.isArray(window.SEM_MENU) ? window.SEM_MENU : [];
 
-// Parse CSV / menu data into menu categories (supports object rows or array rows)
-const menuData = [];
-const categories = [...new Set((menu || []).map(item => {
-  // support both object form (item.Category) and array form (item[1] etc.)
-  return (item && (item.Category || item.category)) || (Array.isArray(item) ? item[1] || '' : '');
-}))].filter(Boolean);
+  if (!accordion) return;
 
-categories.forEach(cat => {
-  const items = (menu || []).filter(item => {
-    const itemCat = (item && (item.Category || item.category)) || (Array.isArray(item) ? item[1] : '');
-    return itemCat === cat;
-  }).map(item => {
+  const normalizeItem = (item) => {
+    if (!item) return null;
     if (Array.isArray(item)) {
-      // array format: [Name, Price, Category?, Image? , Description?] - try to be flexible
       return {
         name: item[0] || '',
         price: item[1] || '',
         desc: item[4] || item[3] || '',
         img: item[3] || ''
       };
-    } else {
-      // object format: use common keys if present
-      return {
-        name: item.Name || item.name || '',
-        price: item.Price || item.price || '',
-        desc: item.Description || item.description || item.Desc || item.desc || '',
-        img: item.Image || item.image || item.img || ''
-      };
     }
-  });
-  menuData.push({ cat, items });
-});
+    return {
+      name: item.Name || item.name || '',
+      price: item.Price || item.price || '',
+      desc: item.Description || item.description || item.Desc || item.desc || '',
+      img: item.Image || item.image || item.img || ''
+    };
+  };
 
-// Initialize menu
-window.SEM_MENU = menuData;
-</script>
-<script src="assets/js/image-map.js"></script>
-<script src="assets/js/menu-data.js"></script>
-<script>
-  const data = window.SEM_MENU || [];
-  const acc = document.getElementById('accordion');
-  const imageMap = window.SEM_IMAGE_MAP || {};
-  const imageKeys = Object.keys(imageMap);
+  const formatPrice = (value) => {
+    if (!value) return '';
+    const stringValue = String(value).trim();
+    if (!stringValue) return '';
+    if (/₹|rs\.?/i.test(stringValue)) return stringValue;
+    if (/^\d/.test(stringValue)) return `₹${stringValue}`;
+    return stringValue;
+  };
 
-  function slugify(text){
-    return String(text).toLowerCase()
-      .replace(/\s+/g,'-')
-      .replace(/[^\w\-]+/g,'')
-      .replace(/\-\-+/g,'-')
-      .replace(/^-+|-+$/g,'');
-  }
+  const resolveImage = (item) => {
+    const slug = slugify(item.name || '');
+    const fromItem = item.img && item.img.trim();
+    const fromMap = slug && window.SEM_IMAGE_MAP && window.SEM_IMAGE_MAP[slug];
+    return fromItem || fromMap || 'assets/images/logo_round.png';
+  };
 
-  function findImage(name, provided){
-    if (provided) {
-      const trimmed = String(provided).trim();
-      if (!trimmed) return null;
-      if (/^(https?:)?\//.test(trimmed)) {
-        return trimmed;
-      }
-      return trimmed.startsWith('assets/') ? trimmed : `assets/images/${trimmed}`;
-    }
+  const attachSlider = (track, prevBtn, nextBtn) => {
+    const scrollAmount = () => track.clientWidth * 0.9;
 
-    const baseName = String(name || '');
-    if (!baseName) return null;
+    const updateNav = () => {
+      const maxScroll = Math.max(0, track.scrollWidth - track.clientWidth);
+      const needsNav = maxScroll > 8;
 
-    const primarySlug = slugify(baseName);
-    if (imageMap[primarySlug]) {
-      return imageMap[primarySlug];
-    }
+      prevBtn.classList.toggle('hidden', !needsNav);
+      nextBtn.classList.toggle('hidden', !needsNav);
 
-    const normalized = slugify(baseName.replace(/\([^)]*\)/g, ' '));
-    if (imageMap[normalized]) {
-      return imageMap[normalized];
-    }
+      if (!needsNav) return;
 
-    const tokens = Array.from(new Set(normalized.split('-').filter(token => token.length > 1)));
-    if (!tokens.length) return null;
+      const left = track.scrollLeft;
+      prevBtn.disabled = left <= 0;
+      nextBtn.disabled = left >= maxScroll - 1;
+    };
 
-    let bestKey = null;
-    let bestScore = 0;
-
-    imageKeys.forEach(key => {
-      const keyTokens = key.split('-').filter(Boolean);
-      if (!keyTokens.length) return;
-      const common = tokens.filter(t => keyTokens.includes(t)).length;
-      if (!common) return;
-      const coverageScore = common / tokens.length;
-      const precisionScore = common / keyTokens.length;
-      const score = (coverageScore * 0.7) + (precisionScore * 0.3);
-      if (score > bestScore || (score === bestScore && (!bestKey || key.length < bestKey.length))) {
-        bestScore = score;
-        bestKey = key;
-      }
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -scrollAmount(), behavior: 'smooth' });
     });
 
-    if (bestKey && bestScore >= 0.35) {
-      return imageMap[bestKey];
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: scrollAmount(), behavior: 'smooth' });
+    });
+
+    track.addEventListener('scroll', updateNav, { passive: true });
+
+    if ('ResizeObserver' in window) {
+      const resizeObserver = new ResizeObserver(updateNav);
+      resizeObserver.observe(track);
     }
 
-    const sortedTokens = [...tokens].sort((a, b) => b.length - a.length);
-    for (const token of sortedTokens) {
-      const partialKey = imageKeys.find(key => key.includes(token));
-      if (partialKey) {
-        return imageMap[partialKey];
-      }
+    requestAnimationFrame(updateNav);
+  };
+
+  menuSource.forEach((entry, index) => {
+    const categoryName = entry && (entry.cat || entry.category || '');
+    const normalizedItems = Array.isArray(entry && entry.items)
+      ? entry.items.map(normalizeItem).filter((item) => item && item.name)
+      : [];
+
+    if (!categoryName) return;
+
+    const wrapper = document.createElement('div');
+    wrapper.className = 'bg-neutral-50 border border-neutral-200 rounded-3xl overflow-hidden shadow-sm';
+
+    const headerButton = document.createElement('button');
+    headerButton.type = 'button';
+    headerButton.className = 'w-full flex items-center justify-between gap-4 px-5 py-5 sm:px-8 sm:py-6 text-left';
+    headerButton.setAttribute('aria-expanded', index === 0 ? 'true' : 'false');
+
+    const title = document.createElement('span');
+    title.className = 'text-lg sm:text-xl font-semibold text-neutral-900';
+    title.textContent = categoryName;
+
+    const iconWrap = document.createElement('span');
+    iconWrap.className = 'flex h-9 w-9 items-center justify-center rounded-full border border-neutral-200 bg-white text-[color:var(--brand)] transition-transform duration-300';
+    iconWrap.innerHTML = '<svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M5.23 7.21a.75.75 0 0 1 1.06.02L10 10.94l3.71-3.71a.75.75 0 1 1 1.08 1.04l-4.25 4.25a.75.75 0 0 1-1.08 0L5.21 8.27a.75.75 0 0 1 .02-1.06z"/></svg>';
+
+    headerButton.append(title, iconWrap);
+
+    const content = document.createElement('div');
+    content.className = 'px-5 pb-6 sm:px-8 sm:pb-8';
+    if (index !== 0) {
+      content.classList.add('hidden');
+    } else {
+      iconWrap.style.transform = 'rotate(180deg)';
     }
 
-    return null;
-  }
+    headerButton.addEventListener('click', () => {
+      const expanded = headerButton.getAttribute('aria-expanded') === 'true';
+      headerButton.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+      content.classList.toggle('hidden', expanded);
+      iconWrap.style.transform = expanded ? '' : 'rotate(180deg)';
+    });
 
-  data.forEach(sec=>{
-    const el = document.createElement('div');
-    el.className = 'border rounded-xl bg-white overflow-hidden';
+    const slider = document.createElement('div');
+    slider.className = 'relative';
 
-    const itemsHtml = (sec.items||[]).map(item=>{
-      const isArray = Array.isArray(item);
-      const name = isArray ? (item[0] || '') : (item.name || item.Name || '');
-      const price = isArray ? (item[1] || '') : (item.price || item.Price || '');
-      const desc = isArray ? (item[4] || item[3] || '') : (item.description || item.Description || item.desc || item.Desc || '');
-      const rawImg = isArray ? (item[2] || item[3] || '') : (item.img || item.Img || item.image || item.Image || '');
-      const resolved = findImage(name, rawImg);
-      const imgSrc = resolved || 'assets/images/logo_round.png';
+    const prevBtn = document.createElement('button');
+    prevBtn.type = 'button';
+    prevBtn.setAttribute('aria-label', `Scroll ${categoryName} items backward`);
+    prevBtn.className = 'hidden sm:flex absolute left-2 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-soft transition disabled:opacity-40 disabled:cursor-not-allowed';
+    prevBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M12.78 4.22a.75.75 0 0 1 0 1.06L8.06 10l4.72 4.72a.75.75 0 1 1-1.06 1.06l-5.25-5.25a.75.75 0 0 1 0-1.06l5.25-5.25a.75.75 0 0 1 1.06 0z"/></svg>';
 
-      return `<article class="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
-                <div class="aspect-[4/3] w-full overflow-hidden bg-neutral-100">
-                  <img src="${imgSrc}" alt="${name}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null;this.src='assets/images/logo_round.png'">
-                </div>
-                <div class="p-4 space-y-2">
-                  <div class="flex items-start justify-between gap-3">
-                    <h3 class="font-semibold text-sm md:text-base">${name}</h3>
-                    <span class="text-[color:var(--brand)] font-semibold text-sm md:text-base whitespace-nowrap">${price}</span>
-                  </div>
-                  ${desc ? `<p class="text-xs text-neutral-600 leading-relaxed">${desc}</p>` : ''}
-                </div>
-              </article>`;
-    }).join('');
+    const nextBtn = document.createElement('button');
+    nextBtn.type = 'button';
+    nextBtn.setAttribute('aria-label', `Scroll ${categoryName} items forward`);
+    nextBtn.className = 'hidden sm:flex absolute right-2 top-1/2 -translate-y-1/2 z-10 h-10 w-10 items-center justify-center rounded-full border border-neutral-200 bg-white text-neutral-700 shadow-soft transition disabled:opacity-40 disabled:cursor-not-allowed';
+    nextBtn.innerHTML = '<svg viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5" aria-hidden="true"><path d="M7.22 4.22a.75.75 0 0 0 0 1.06L11.94 10l-4.72 4.72a.75.75 0 1 0 1.06 1.06l5.25-5.25a.75.75 0 0 0 0-1.06L8.28 4.22a.75.75 0 0 0-1.06 0z"/></svg>';
 
-    el.innerHTML = `
-      <button class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-base md:text-lg hover:bg-neutral-50 transition-colors" onclick="const panel=this.nextElementSibling;const icon=this.querySelector('[data-icon]');panel.classList.toggle('hidden');icon.textContent=panel.classList.contains('hidden')?'+':'−';">
-        <span>${sec.cat}</span>
-        <span data-icon>+</span>
-      </button>
-      <div class="hidden px-5 pb-6">
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          ${itemsHtml || '<p class="text-sm text-neutral-500">No items available.</p>'}
-        </div>
-      </div>`;
-    acc.appendChild(el);
+    const viewport = document.createElement('div');
+    viewport.className = 'overflow-hidden';
+
+    const track = document.createElement('div');
+    track.className = 'flex gap-4 overflow-x-auto scroll-smooth pb-4 pt-4 pr-2 sm:pr-4 snap-x snap-mandatory';
+    track.setAttribute('role', 'list');
+
+    if (normalizedItems.length === 0) {
+      const empty = document.createElement('p');
+      empty.className = 'py-6 text-sm text-neutral-600';
+      empty.textContent = 'Menu coming soon for this category.';
+      track.appendChild(empty);
+    } else {
+      normalizedItems.forEach((item) => {
+        const card = document.createElement('article');
+        card.className = 'min-w-[220px] sm:min-w-[250px] snap-start overflow-hidden rounded-3xl border border-neutral-200 bg-white shadow-sm';
+        card.setAttribute('role', 'listitem');
+
+        const figure = document.createElement('div');
+        figure.className = 'relative h-40 w-full overflow-hidden bg-neutral-100';
+
+        const image = document.createElement('img');
+        image.src = resolveImage(item);
+        image.alt = item.name;
+        image.loading = 'lazy';
+        image.className = 'h-full w-full object-cover';
+        figure.appendChild(image);
+
+        const body = document.createElement('div');
+        body.className = 'space-y-2 p-4';
+
+        const nameEl = document.createElement('h3');
+        nameEl.className = 'text-base font-semibold text-neutral-900';
+        nameEl.textContent = item.name;
+
+        const priceText = formatPrice(item.price);
+        if (priceText) {
+          const priceEl = document.createElement('p');
+          priceEl.className = 'text-sm font-semibold text-[color:var(--brand)]';
+          priceEl.textContent = priceText;
+          body.appendChild(priceEl);
+        }
+
+        if (item.desc) {
+          const descEl = document.createElement('p');
+          descEl.className = 'text-sm leading-relaxed text-neutral-600';
+          descEl.textContent = item.desc;
+          body.appendChild(descEl);
+        }
+
+        body.prepend(nameEl);
+        card.append(figure, body);
+        track.appendChild(card);
+      });
+    }
+
+    viewport.appendChild(track);
+    slider.append(prevBtn, viewport, nextBtn);
+    content.appendChild(slider);
+
+    wrapper.append(headerButton, content);
+    accordion.appendChild(wrapper);
+
+    attachSlider(track, prevBtn, nextBtn);
   });
+})();
 </script>
 </body>
 </html>
