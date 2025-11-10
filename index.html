@@ -196,10 +196,13 @@ categories.forEach(cat => {
 // Initialize menu
 window.SEM_MENU = menuData;
 </script>
+<script src="assets/js/image-map.js"></script>
 <script src="assets/js/menu-data.js"></script>
 <script>
   const data = window.SEM_MENU || [];
   const acc = document.getElementById('accordion');
+  const imageMap = window.SEM_IMAGE_MAP || {};
+  const imageKeys = Object.keys(imageMap);
 
   function slugify(text){
     return String(text).toLowerCase()
@@ -207,6 +210,64 @@ window.SEM_MENU = menuData;
       .replace(/[^\w\-]+/g,'')
       .replace(/\-\-+/g,'-')
       .replace(/^-+|-+$/g,'');
+  }
+
+  function findImage(name, provided){
+    if (provided) {
+      const trimmed = String(provided).trim();
+      if (!trimmed) return null;
+      if (/^(https?:)?\//.test(trimmed)) {
+        return trimmed;
+      }
+      return trimmed.startsWith('assets/') ? trimmed : `assets/images/${trimmed}`;
+    }
+
+    const baseName = String(name || '');
+    if (!baseName) return null;
+
+    const primarySlug = slugify(baseName);
+    if (imageMap[primarySlug]) {
+      return imageMap[primarySlug];
+    }
+
+    const normalized = slugify(baseName.replace(/\([^)]*\)/g, ' '));
+    if (imageMap[normalized]) {
+      return imageMap[normalized];
+    }
+
+    const tokens = Array.from(new Set(normalized.split('-').filter(token => token.length > 1)));
+    if (!tokens.length) return null;
+
+    let bestKey = null;
+    let bestScore = 0;
+
+    imageKeys.forEach(key => {
+      const keyTokens = key.split('-').filter(Boolean);
+      if (!keyTokens.length) return;
+      const common = tokens.filter(t => keyTokens.includes(t)).length;
+      if (!common) return;
+      const coverageScore = common / tokens.length;
+      const precisionScore = common / keyTokens.length;
+      const score = (coverageScore * 0.7) + (precisionScore * 0.3);
+      if (score > bestScore || (score === bestScore && (!bestKey || key.length < bestKey.length))) {
+        bestScore = score;
+        bestKey = key;
+      }
+    });
+
+    if (bestKey && bestScore >= 0.35) {
+      return imageMap[bestKey];
+    }
+
+    const sortedTokens = [...tokens].sort((a, b) => b.length - a.length);
+    for (const token of sortedTokens) {
+      const partialKey = imageKeys.find(key => key.includes(token));
+      if (partialKey) {
+        return imageMap[partialKey];
+      }
+    }
+
+    return null;
   }
 
   data.forEach(sec=>{
@@ -219,7 +280,8 @@ window.SEM_MENU = menuData;
       const price = isArray ? (item[1] || '') : (item.price || item.Price || '');
       const desc = isArray ? (item[4] || item[3] || '') : (item.description || item.Description || item.desc || item.Desc || '');
       const rawImg = isArray ? (item[2] || item[3] || '') : (item.img || item.Img || item.image || item.Image || '');
-      const imgSrc = rawImg ? rawImg : `assets/images/${slugify(name)}.jpg`;
+      const resolved = findImage(name, rawImg);
+      const imgSrc = resolved || 'assets/images/logo_round.png';
 
       return `<article class="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
                 <div class="aspect-[4/3] w-full overflow-hidden bg-neutral-100">
