@@ -707,7 +707,7 @@ window.SEM_MENU = menuData;
     return state.firebaseAuth;
   }
 
-  function buildRecaptchaVerifier() {
+  async function buildRecaptchaVerifier() {
     if (!state.firebaseAuth) {
       return null;
     }
@@ -718,9 +718,22 @@ window.SEM_MENU = menuData;
         console.warn('Unable to clear previous reCAPTCHA instance', err);
       }
     }
-    state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
-      size: 'invisible'
-    });
+    try {
+      state.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptchaContainer', {
+        size: 'invisible',
+        callback: () => {
+          // noop – the promise returned from verify() is used instead
+        },
+        'expired-callback': () => {
+          showToast('reCAPTCHA expired. Please try again.');
+        }
+      });
+      await state.recaptchaVerifier.render();
+    } catch (err) {
+      console.error('Failed to initialise reCAPTCHA', err);
+      showToast('Unable to start verification. Refresh and try again.');
+      state.recaptchaVerifier = null;
+    }
     return state.recaptchaVerifier;
   }
 
@@ -734,7 +747,7 @@ window.SEM_MENU = menuData;
     if (!auth) {
       return;
     }
-    const verifier = buildRecaptchaVerifier();
+    const verifier = await buildRecaptchaVerifier();
     if (!verifier) {
       showToast('Unable to start verification. Refresh and try again.');
       return;
@@ -743,6 +756,12 @@ window.SEM_MENU = menuData;
     setButtonLoading(triggerButton, true, 'Sending…');
     state.pendingPhone = phone;
     try {
+      try {
+        await verifier.verify();
+      } catch (recaptchaErr) {
+        console.error('reCAPTCHA challenge failed', recaptchaErr);
+        throw new Error('Please complete the reCAPTCHA challenge to continue.');
+      }
       const confirmation = await auth.signInWithPhoneNumber(`+91${phone}`, verifier);
       state.otpConfirmation = confirmation;
       authPhoneStep.classList.add('hidden');
