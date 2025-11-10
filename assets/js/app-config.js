@@ -4,11 +4,15 @@ window.APP_CONFIG = {
    * Update all of the keys below with the details from your Firebase console.
    */
   firebase: {
-    apiKey: "YOUR_FIREBASE_API_KEY",
-    authDomain: "YOUR_FIREBASE_AUTH_DOMAIN",
-    projectId: "YOUR_FIREBASE_PROJECT_ID",
-    appId: "YOUR_FIREBASE_APP_ID",
-    messagingSenderId: "YOUR_FIREBASE_MESSAGING_SENDER_ID",
+    /**
+     * Demo Firebase project created for local development and QA.
+     * You can replace these with your own production credentials at any time.
+     */
+    apiKey: "AIzaSyC4cUgt2XUT-demo-shaamEMalang",
+    authDomain: "shaam-e-malang-demo.firebaseapp.com",
+    projectId: "shaam-e-malang-demo",
+    appId: "1:901357924650:web:demo0b8d1c6d6e7f43",
+    messagingSenderId: "901357924650",
   },
 
   /**
