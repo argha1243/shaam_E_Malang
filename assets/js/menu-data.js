@@ -807,39 +807,116 @@ window.SEM_MENU = [
     "cat": "Healthy & Breakfast",
     "items": [
       [
-        "Dalia • Oats Smoothie • Masala Oats",
+        "Dalia",
         "59",
         "",
         "",
-        "Wholesome grains served as porridge, smoothie or spiced oats."
+        "Slow-cooked broken wheat porridge gently spiced for warmth."
       ],
       [
-        "Poha • Upma",
+        "Oats Smoothie",
+        "59",
+        "",
+        "",
+        "Creamy oats blended with yogurt and fruits for a filling sip."
+      ],
+      [
+        "Masala Oats",
+        "59",
+        "",
+        "",
+        "Savory oats tempered with vegetables, mustard seeds and herbs."
+      ],
+      [
+        "Poha",
         "49",
         "",
         "",
-        "Light breakfast staples tempered with curry leaves and veggies."
+        "Flattened rice tossed with curry leaves, mustard seeds and peanuts."
+      ],
+      [
+        "Upma",
+        "49",
+        "",
+        "",
+        "Semolina cooked till fluffy with veggies, chillies and ghee."
       ],
       [
         "Scrambled Egg",
         "79",
         "",
         "",
-        "Softly scrambled eggs finished with butter and herbs."
+        "Softly scrambled eggs folded with butter and herbs."
       ],
       [
-        "Egg Poach",
-        "20/35",
+        "Egg Poach (Single)",
+        "20",
         "",
         "",
-        "Perfectly poached eggs ready for toast or bowls."
+        "One perfectly poached egg, ideal to crown your toast or bowl."
       ],
       [
-        "Toast & Eggs: Cheese/Fluffy/Masala Veg/Bread/Double/Single • Butter/Jam Toast",
-        "30–79",
+        "Egg Poach (Double)",
+        "35",
         "",
         "",
-        "Customisable toast-and-egg platter with spreads and add-ons."
+        "Two gently poached eggs with runny yolks ready to serve."
+      ],
+      [
+        "Bread Butter Toast",
+        "39",
+        "",
+        "",
+        "Toasted slices layered with creamy butter."
+      ],
+      [
+        "Bread Jam Toast",
+        "39",
+        "",
+        "",
+        "Golden toast topped with sweet seasonal jam."
+      ],
+      [
+        "Bread Omelette",
+        "49",
+        "",
+        "",
+        "Classic masala omelette tucked inside toasted bread."
+      ],
+      [
+        "Cheese Omelette",
+        "79",
+        "",
+        "",
+        "Fluffy omelette overflowing with molten cheese."
+      ],
+      [
+        "Fluffy Omelette",
+        "69",
+        "",
+        "",
+        "Whipped eggs cooked airy and soft with a hint of butter."
+      ],
+      [
+        "Masala Veggie Omelette",
+        "55",
+        "",
+        "",
+        "Omelette speckled with onions, chillies and garden veggies."
+      ],
+      [
+        "Double Omelette",
+        "45",
+        "",
+        "",
+        "Hearty two-egg omelette cooked golden."
+      ],
+      [
+        "Single Omelette",
+        "30",
+        "",
+        "",
+        "Light single-egg omelette for a quick bite."
       ]
     ]
   }
