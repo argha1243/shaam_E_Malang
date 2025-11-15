@@ -777,18 +777,95 @@ window.SEM_MENU = [
     "cat": "Drinks",
     "items": [
       [
-        "Milkshakes: Brownie | KitKat | Oreo | Caramel | Chocolate",
-        "139–159",
+        "Brownie Milkshake",
+        "159",
         "",
         "",
-        "Thick milkshakes blended with premium mix-ins and ice cream."
+        "Chocolatey brownie chunks blitzed into a thick, creamy shake."
       ],
       [
-        "Mocktails: Sunset | Shirley Temple | Mango | Litchi | Blue Lagoon | Virgin Mojito",
-        "99–129",
+        "Caramel Milkshake",
+        "139",
         "",
         "",
-        "Refreshing handcrafted mocktails in six vibrant flavours."
+        "Silky caramel sauce swirled through vanilla ice cream."
+      ],
+      [
+        "Chocolate Milkshake",
+        "139",
+        "",
+        "",
+        "Classic chocolate indulgence with a velvety finish."
+      ],
+      [
+        "KitKat Milkshake",
+        "149",
+        "",
+        "",
+        "Crunchy KitKat wafers blended into a frosty delight."
+      ],
+      [
+        "Oreo Milkshake",
+        "149",
+        "",
+        "",
+        "Fan-favourite Oreo cookies spun into a chilled treat."
+      ],
+      [
+        "Blue Lagoon Mocktail",
+        "99",
+        "",
+        "",
+        "Citrusy blue curacao cooler with a sparkling twist."
+      ],
+      [
+        "Litchi Queen Mocktail",
+        "119",
+        "",
+        "",
+        "Sweet litchi nectar balanced with a splash of soda."
+      ],
+      [
+        "Mango Delight Mocktail",
+        "129",
+        "",
+        "",
+        "Lush mango puree shaken with citrus for a tropical sip."
+      ],
+      [
+        "Masala Coke",
+        "59",
+        "",
+        "",
+        "Cola brightened with Shaam‑E‑Malang's tangy masala blend."
+      ],
+      [
+        "Masala Lemonade",
+        "59",
+        "",
+        "",
+        "Zesty lemonade lifted with chaat-style spices."
+      ],
+      [
+        "Shirly Temple Mocktail",
+        "129",
+        "",
+        "",
+        "Grenadine-kissed fizz finished with a cherry on top."
+      ],
+      [
+        "Sunset Mocktail",
+        "129",
+        "",
+        "",
+        "Layered orange and grenadine hues inspired by twilight skies."
+      ],
+      [
+        "Virgin Mojito Mocktail",
+        "99",
+        "",
+        "",
+        "Minty lime spritzer muddled for instant refreshment."
       ]
     ]
   },
