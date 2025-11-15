@@ -781,11 +781,67 @@ window.SEM_MENU = [
     "cat": "Tea",
     "items": [
       [
-        "Teas (R/M/L): Milk, Ginger, Elaichi, Kesar, Chocolate, Special Masala",
-        "10–49",
+        "Plain Milk Tea (S/M/L)",
+        "12/20/35",
         "",
         "",
-        "Brewed-to-order teas in comforting classic and masala flavours."
+        "Classic boiled milk tea served piping hot in three sizes."
+      ],
+      [
+        "Special Masala Tea (M/L)",
+        "35/49",
+        "",
+        "",
+        "Masala chai infused with warming spices and fresh ginger."
+      ],
+      [
+        "Ginger Milk Tea (M/L)",
+        "25/40",
+        "",
+        "",
+        "Creamy tea simmered with crushed ginger for a cosy sip."
+      ],
+      [
+        "Elaichi Milk Tea (M/L)",
+        "25/40",
+        "",
+        "",
+        "Fragrant cardamom milk tea with a soothing aroma."
+      ],
+      [
+        "Kesar Milk Tea (M/L)",
+        "30/45",
+        "",
+        "",
+        "Rich saffron-kissed milk tea with gentle sweetness."
+      ],
+      [
+        "Chocolate Tea (M/L)",
+        "30/49",
+        "",
+        "",
+        "Comforting cocoa-twisted chai finished with froth."
+      ],
+      [
+        "Lemon Honey Ginger Tea",
+        "49",
+        "",
+        "",
+        "Soothing herbal brew with lemon, honey and ginger."
+      ],
+      [
+        "Plain Liquor Ginger Tea (S)",
+        "10",
+        "",
+        "",
+        "Light, spicy black tea with bright ginger notes."
+      ],
+      [
+        "Lemon Tea",
+        "12",
+        "",
+        "",
+        "Zesty lemon-infused black tea served hot."
       ]
     ]
   },
@@ -793,11 +849,60 @@ window.SEM_MENU = [
     "cat": "Coffee",
     "items": [
       [
-        "Coffee: Black, Milk, Americano, Cold, Latte, Mocha, Caramel Cold Coffee",
-        "29–129",
+        "Americano",
+        "99",
         "",
         "",
-        "Barista-style coffees served hot or iced with custom brews."
+        "Bold espresso topped with hot water for a clean finish."
+      ],
+      [
+        "Latte",
+        "119",
+        "",
+        "",
+        "Velvety steamed milk poured over a double espresso."
+      ],
+      [
+        "Mocha",
+        "129",
+        "",
+        "",
+        "Chocolate espresso latte finished with whipped cream."
+      ],
+      [
+        "Black Coffee (M/L)",
+        "29/49",
+        "",
+        "",
+        "Freshly brewed black coffee in medium or large."
+      ],
+      [
+        "Milk Coffee (M/L)",
+        "39/69",
+        "",
+        "",
+        "Classic milk coffee balanced with mellow sweetness."
+      ],
+      [
+        "Cold Coffee",
+        "99",
+        "",
+        "",
+        "Iced blended coffee with a creamy froth."
+      ],
+      [
+        "Cold Coffee with Ice-Cream",
+        "129",
+        "",
+        "",
+        "Chilled coffee shake crowned with vanilla ice-cream."
+      ],
+      [
+        "Caramel Cold Coffee",
+        "129",
+        "",
+        "",
+        "Iced coffee swirl with buttery caramel and cream."
       ]
     ]
   },
@@ -805,11 +910,32 @@ window.SEM_MENU = [
     "cat": "Dessert",
     "items": [
       [
-        "Dessert: Brownie • Choco Lava Cake • Brownie w/ Ice‑Cream",
-        "99–129",
+        "Brownie",
+        "99",
         "",
         "",
-        "Indulgent desserts from gooey lava cake to fudgy brownie a la mode."
+        "Fudgy chocolate brownie baked in-house."
+      ],
+      [
+        "Brownie with Ice-Cream",
+        "129",
+        "",
+        "",
+        "Warm brownie served with a scoop of vanilla ice-cream."
+      ],
+      [
+        "Choco Lava Cake",
+        "99",
+        "",
+        "",
+        "Molten-centred chocolate cake dusted with cocoa."
+      ],
+      [
+        "Hot Chocolate",
+        "129",
+        "",
+        "",
+        "Rich drinking chocolate topped with whipped cream."
       ]
     ]
   },
