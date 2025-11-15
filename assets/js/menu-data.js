@@ -10,7 +10,7 @@ window.SEM_MENU = [
         "Smoky paneer tikka, onions and peppers over mozzarella and our signature sauce."
       ],
       [
-        "Paneer Makhani",
+        "Paneer Makhani Pizza",
         "269/419",
         "",
         "",
@@ -66,7 +66,7 @@ window.SEM_MENU = [
         "Loaded with chicken sausage, salami and pepperoni on smoky sauce."
       ],
       [
-        "Peri Peri Chicken",
+        "Peri Peri Chicken Pizza",
         "299/449",
         "",
         "",
