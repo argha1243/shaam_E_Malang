@@ -665,115 +665,225 @@ window.SEM_MENU = [
   {
     "cat": "Combos",
     "items": [
-      [
-        "Shaam-E-Snack Combo 1",
-        "Chicken Cheese Sandwich + Masala Tea (M) — 129",
-        "",
-        "",
-        "Veg grilled sandwich, fries and iced tea combo."
-      ],
-      [
-        "Shaam-E-Snack Combo 2",
-        "Corn Cheese Sandwich + Masala Tea (M) — 149",
-        "",
-        "",
-        "Paneer tikka sandwich with fries and cold coffee."
-      ],
-      [
-        "Shaam-E-Snack Combo 3",
-        "2 Chicken Tikka Sandwich + 2 Masala Tea — 299",
-        "",
-        "",
-        "Chicken sandwich, fries and iced tea set."
-      ],
-      [
-        "Shaam-E-Snack Combo 4",
-        "2 Chicken Basic Sandwich + Fries (M) + 2 Coke (250ml) — 329",
-        "",
-        "",
-        "Chicken tikka wrap, fries and cold coffee."
-      ],
-      [
-        "Crunch Bucket 1",
-        "Wings(2) + Popcorn(10) + Strips(5) + Any dip — 299",
-        "",
-        "",
-        "Veg popcorn, fries and dip for two snackers."
-      ],
-      [
-        "Crunch Bucket 2",
-        "Wings(4) + Popcorn(20) + Strips(10) + 2 Dips — 599",
-        "",
-        "",
-        "Chicken popcorn, fries and creamy dip bucket."
-      ],
-      [
-        "Chakhna Box 1",
-        "Wedges(10) + Fries(R) + Peanut mix + dips — 199",
-        "",
-        "",
-        "Veg munchies mix with peanuts, fries and masala corn."
-      ],
-      [
-        "Chakhna Box 2",
-        "Wings(3) + Popcorn(6) + mix + dips — 299",
-        "",
-        "",
-        "Chicken nuggets, fries and savoury munchies box."
-      ],
-      [
-        "Chakhna Box 3",
-        "Cheese Ball(3)+Wedges(5)+Fries(R)+Salad+mix+dips — 299",
-        "",
-        "",
-        "Fish fingers, fries and spicy peanuts platter."
-      ],
-      [
-        "Chakhna Box 4",
-        "Basa Fry(1) + Popcorn(6) + Sausage Fry + Fries(M) + mix + dips — 399",
-        "",
-        "",
-        "Chicken wings, fries and masala papad pairing."
-      ],
-      [
-        "Bite & Sip Trio 1",
-        "Crispy Chicken Burger + Fries(R) + Coke — 249",
-        "",
-        "",
-        "Veg sandwich, fries and choice of cold beverage."
-      ],
-      [
-        "Bite & Sip Trio 2",
-        "Veg Jumbo Burger + Fries(R) + Coke — 249",
-        "",
-        "",
-        "Chicken burger, fries and chilled drink trio."
-      ],
-      [
-        "Bite & Sip Trio 3",
-        "Jumbo Chicken Burger + Classic Cheese Chicken + Fries(M) + 2 Coke — 399",
-        "",
-        "",
-        "Wrap, fries and cold coffee for an easy meal."
-      ]
+      {
+        "name": "Shaam-E-Snack Combo 1",
+        "price": "₹129",
+        "desc": "Perfect evening combo that balances savoury comfort with a warm sip.",
+        "components": [
+          "Chicken Cheese Sandwich",
+          "Masala Tea (Medium)"
+        ]
+      },
+      {
+        "name": "Shaam-E-Snack Combo 2",
+        "price": "₹149",
+        "desc": "Corn and cheese melt paired with our aromatic house chai.",
+        "components": [
+          "Corn Cheese Sandwich",
+          "Masala Tea (Medium)"
+        ]
+      },
+      {
+        "name": "Shaam-E-Snack Combo 3",
+        "price": "₹299",
+        "desc": "Double up on sandwiches and tea for a filling duet.",
+        "components": [
+          "Chicken Tikka Sandwich ×2",
+          "Masala Tea ×2"
+        ]
+      },
+      {
+        "name": "Shaam-E-Snack Combo 4",
+        "price": "₹329",
+        "desc": "A hearty sharing combo built around our classic chicken sandwiches.",
+        "components": [
+          "Chicken Basic Sandwich ×2",
+          "Fries (Medium)",
+          "Coke 250 ml ×2"
+        ]
+      },
+      {
+        "name": "Crunch Bucket 1",
+        "price": "₹299",
+        "desc": "Small crowd-pleaser with bites of everything crispy.",
+        "components": [
+          "Chicken Wings ×2",
+          "Popcorn Chicken ×10",
+          "Crispy Chicken Strips ×5",
+          "Any Dip"
+        ]
+      },
+      {
+        "name": "Crunch Bucket 2",
+        "price": "₹599",
+        "desc": "Party-sized bucket stacked with our signature fried favourites.",
+        "components": [
+          "Chicken Wings ×4",
+          "Popcorn Chicken ×20",
+          "Crispy Chicken Strips ×10",
+          "2 Dips"
+        ]
+      },
+      {
+        "name": "Chakhna Box 1",
+        "price": "₹199",
+        "desc": "Light nibble box with spicy munchies and dips to share.",
+        "components": [
+          "Potato Wedges ×10",
+          "Fries (Regular)",
+          "Peanut Mix",
+          "Assorted Dips"
+        ]
+      },
+      {
+        "name": "Chakhna Box 2",
+        "price": "₹299",
+        "desc": "Snack platter that balances wings, popcorn chicken and crunchy mix.",
+        "components": [
+          "Chicken Wings ×3",
+          "Popcorn Chicken ×6",
+          "Spiced Snack Mix",
+          "Assorted Dips"
+        ]
+      },
+      {
+        "name": "Chakhna Box 3",
+        "price": "₹299",
+        "desc": "Vegetarian-friendly party bites finished with salad and sauces.",
+        "components": [
+          "Cheese Balls ×3",
+          "Potato Wedges ×5",
+          "Fries (Regular)",
+          "Fresh Salad",
+          "Snack Mix",
+          "Assorted Dips"
+        ]
+      },
+      {
+        "name": "Chakhna Box 4",
+        "price": "₹399",
+        "desc": "Loaded seafood and chicken platter for late-night cravings.",
+        "components": [
+          "Basa Fry",
+          "Popcorn Chicken ×6",
+          "Sausage Fry",
+          "Fries (Medium)",
+          "Snack Mix",
+          "Assorted Dips"
+        ]
+      },
+      {
+        "name": "Bite & Sip Trio 1",
+        "price": "₹249",
+        "desc": "Go-to crispy chicken burger meal finished with a fizzy drink.",
+        "components": [
+          "Crispy Chicken Burger",
+          "Fries (Regular)",
+          "Coke"
+        ]
+      },
+      {
+        "name": "Bite & Sip Trio 2",
+        "price": "₹249",
+        "desc": "Vegetarian burger combo that keeps it classic and comforting.",
+        "components": [
+          "Veg Jumbo Burger",
+          "Fries (Regular)",
+          "Coke"
+        ]
+      },
+      {
+        "name": "Bite & Sip Trio 3",
+        "price": "₹399",
+        "desc": "A duo of chicken burgers with sides and drinks for sharing.",
+        "components": [
+          "Jumbo Chicken Burger",
+          "Classic Cheese Chicken Burger",
+          "Fries (Medium)",
+          "Coke ×2"
+        ]
+      }
     ]
   },
   {
     "cat": "Drinks",
     "items": [
       [
-        "Milkshakes: Brownie | KitKat | Oreo | Caramel | Chocolate",
-        "139–159",
+        "Brownie Milkshake",
+        "₹159",
         "",
         "",
-        "Thick milkshakes blended with premium mix-ins and ice cream."
+        "Decadent chocolate brownie blended into a thick shake."
       ],
       [
-        "Mocktails: Sunset | Shirley Temple | Mango | Litchi | Blue Lagoon | Virgin Mojito",
-        "99–129",
+        "KitKat Milkshake",
+        "₹159",
         "",
         "",
-        "Refreshing handcrafted mocktails in six vibrant flavours."
+        "Crunchy KitKat wafers whipped with ice cream."
+      ],
+      [
+        "Oreo Milkshake",
+        "₹149",
+        "",
+        "",
+        "Cookies-and-cream shake topped with crushed Oreo."
+      ],
+      [
+        "Caramel Milkshake",
+        "₹149",
+        "",
+        "",
+        "Buttery caramel swirl with velvety dairy richness."
+      ],
+      [
+        "Chocolate Milkshake",
+        "₹139",
+        "",
+        "",
+        "Classic chocolate indulgence finished with cocoa drizzle."
+      ],
+      [
+        "Sunset Mocktail",
+        "₹129",
+        "",
+        "",
+        "Citrus and grenadine layers that glow like a sunset."
+      ],
+      [
+        "Shirley Temple",
+        "₹129",
+        "",
+        "",
+        "Iconic ginger ale, lime and cherry cooler."
+      ],
+      [
+        "Mango Cooler",
+        "₹119",
+        "",
+        "",
+        "Juicy Alphonso mango mocktail with a chilled finish."
+      ],
+      [
+        "Litchi Cooler",
+        "₹119",
+        "",
+        "",
+        "Delicate litchi nectar served ice-cold."
+      ],
+      [
+        "Blue Lagoon",
+        "₹109",
+        "",
+        "",
+        "Electric blue lemonade with tropical vibes."
+      ],
+      [
+        "Virgin Mojito",
+        "₹99",
+        "",
+        "",
+        "Mint, lime and fizz for a crisp refresher."
       ]
     ]
   },
