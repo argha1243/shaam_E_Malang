@@ -778,28 +778,164 @@ window.SEM_MENU = [
     ]
   },
   {
-    "cat": "Tea • Coffee • Dessert",
+    "cat": "Tea",
     "items": [
       [
-        "Teas (R/M/L): Milk, Ginger, Elaichi, Kesar, Chocolate, Special Masala",
-        "10–49",
+        "Plain Milk Tea (S/M/L)",
+        "12/20/35",
         "",
         "",
-        "Brewed-to-order teas in comforting classic and masala flavours."
+        "Classic boiled milk tea served piping hot in three sizes."
       ],
       [
-        "Coffee: Black, Milk, Americano, Cold, Latte, Mocha, Caramel Cold Coffee",
-        "29–129",
+        "Special Masala Tea (M/L)",
+        "35/49",
         "",
         "",
-        "Barista-style coffees served hot or iced with custom brews."
+        "Masala chai infused with warming spices and fresh ginger."
       ],
       [
-        "Dessert: Brownie • Choco Lava Cake • Brownie w/ Ice‑Cream",
-        "99–129",
+        "Ginger Milk Tea (M/L)",
+        "25/40",
         "",
         "",
-        "Indulgent desserts from gooey lava cake to fudgy brownie a la mode."
+        "Creamy tea simmered with crushed ginger for a cosy sip."
+      ],
+      [
+        "Elaichi Milk Tea (M/L)",
+        "25/40",
+        "",
+        "",
+        "Fragrant cardamom milk tea with a soothing aroma."
+      ],
+      [
+        "Kesar Milk Tea (M/L)",
+        "30/45",
+        "",
+        "",
+        "Rich saffron-kissed milk tea with gentle sweetness."
+      ],
+      [
+        "Chocolate Tea (M/L)",
+        "30/49",
+        "",
+        "",
+        "Comforting cocoa-twisted chai finished with froth."
+      ],
+      [
+        "Lemon Honey Ginger Tea",
+        "49",
+        "",
+        "",
+        "Soothing herbal brew with lemon, honey and ginger."
+      ],
+      [
+        "Plain Liquor Ginger Tea (S)",
+        "10",
+        "",
+        "",
+        "Light, spicy black tea with bright ginger notes."
+      ],
+      [
+        "Lemon Tea",
+        "12",
+        "",
+        "",
+        "Zesty lemon-infused black tea served hot."
+      ]
+    ]
+  },
+  {
+    "cat": "Coffee",
+    "items": [
+      [
+        "Americano",
+        "99",
+        "",
+        "",
+        "Bold espresso topped with hot water for a clean finish."
+      ],
+      [
+        "Latte",
+        "119",
+        "",
+        "",
+        "Velvety steamed milk poured over a double espresso."
+      ],
+      [
+        "Mocha",
+        "129",
+        "",
+        "",
+        "Chocolate espresso latte finished with whipped cream."
+      ],
+      [
+        "Black Coffee (M/L)",
+        "29/49",
+        "",
+        "",
+        "Freshly brewed black coffee in medium or large."
+      ],
+      [
+        "Milk Coffee (M/L)",
+        "39/69",
+        "",
+        "",
+        "Classic milk coffee balanced with mellow sweetness."
+      ],
+      [
+        "Cold Coffee",
+        "99",
+        "",
+        "",
+        "Iced blended coffee with a creamy froth."
+      ],
+      [
+        "Cold Coffee with Ice-Cream",
+        "129",
+        "",
+        "",
+        "Chilled coffee shake crowned with vanilla ice-cream."
+      ],
+      [
+        "Caramel Cold Coffee",
+        "129",
+        "",
+        "",
+        "Iced coffee swirl with buttery caramel and cream."
+      ]
+    ]
+  },
+  {
+    "cat": "Dessert",
+    "items": [
+      [
+        "Brownie",
+        "99",
+        "",
+        "",
+        "Fudgy chocolate brownie baked in-house."
+      ],
+      [
+        "Brownie with Ice-Cream",
+        "129",
+        "",
+        "",
+        "Warm brownie served with a scoop of vanilla ice-cream."
+      ],
+      [
+        "Choco Lava Cake",
+        "99",
+        "",
+        "",
+        "Molten-centred chocolate cake dusted with cocoa."
+      ],
+      [
+        "Hot Chocolate",
+        "129",
+        "",
+        "",
+        "Rich drinking chocolate topped with whipped cream."
       ]
     ]
   },
@@ -807,39 +943,116 @@ window.SEM_MENU = [
     "cat": "Healthy & Breakfast",
     "items": [
       [
-        "Dalia • Oats Smoothie • Masala Oats",
+        "Dalia",
         "59",
         "",
         "",
-        "Wholesome grains served as porridge, smoothie or spiced oats."
+        "Slow-cooked broken wheat porridge gently spiced for warmth."
       ],
       [
-        "Poha • Upma",
+        "Oats Smoothie",
+        "59",
+        "",
+        "",
+        "Creamy oats blended with yogurt and fruits for a filling sip."
+      ],
+      [
+        "Masala Oats",
+        "59",
+        "",
+        "",
+        "Savory oats tempered with vegetables, mustard seeds and herbs."
+      ],
+      [
+        "Poha",
         "49",
         "",
         "",
-        "Light breakfast staples tempered with curry leaves and veggies."
+        "Flattened rice tossed with curry leaves, mustard seeds and peanuts."
+      ],
+      [
+        "Upma",
+        "49",
+        "",
+        "",
+        "Semolina cooked till fluffy with veggies, chillies and ghee."
       ],
       [
         "Scrambled Egg",
         "79",
         "",
         "",
-        "Softly scrambled eggs finished with butter and herbs."
+        "Softly scrambled eggs folded with butter and herbs."
       ],
       [
-        "Egg Poach",
-        "20/35",
+        "Egg Poach (Single)",
+        "20",
         "",
         "",
-        "Perfectly poached eggs ready for toast or bowls."
+        "One perfectly poached egg, ideal to crown your toast or bowl."
       ],
       [
-        "Toast & Eggs: Cheese/Fluffy/Masala Veg/Bread/Double/Single • Butter/Jam Toast",
-        "30–79",
+        "Egg Poach (Double)",
+        "35",
         "",
         "",
-        "Customisable toast-and-egg platter with spreads and add-ons."
+        "Two gently poached eggs with runny yolks ready to serve."
+      ],
+      [
+        "Bread Butter Toast",
+        "39",
+        "",
+        "",
+        "Toasted slices layered with creamy butter."
+      ],
+      [
+        "Bread Jam Toast",
+        "39",
+        "",
+        "",
+        "Golden toast topped with sweet seasonal jam."
+      ],
+      [
+        "Bread Omelette",
+        "49",
+        "",
+        "",
+        "Classic masala omelette tucked inside toasted bread."
+      ],
+      [
+        "Cheese Omelette",
+        "79",
+        "",
+        "",
+        "Fluffy omelette overflowing with molten cheese."
+      ],
+      [
+        "Fluffy Omelette",
+        "69",
+        "",
+        "",
+        "Whipped eggs cooked airy and soft with a hint of butter."
+      ],
+      [
+        "Masala Veggie Omelette",
+        "55",
+        "",
+        "",
+        "Omelette speckled with onions, chillies and garden veggies."
+      ],
+      [
+        "Double Omelette",
+        "45",
+        "",
+        "",
+        "Hearty two-egg omelette cooked golden."
+      ],
+      [
+        "Single Omelette",
+        "30",
+        "",
+        "",
+        "Light single-egg omelette for a quick bite."
       ]
     ]
   }
