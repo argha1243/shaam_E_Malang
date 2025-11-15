@@ -239,119 +239,236 @@ window.SEM_MENU = [
     ]
   },
   {
-    "cat": "Sandwich & Wrap",
+    "cat": "Sandwich",
     "items": [
       [
         "Creamy Mushroom",
-        "149/169",
+        "149",
         "",
         "",
         "Sautéed mushrooms in garlic cream stuffed into toasted bread."
       ],
       [
         "Spicy Paneer Tikka",
-        "139/159",
+        "139",
         "",
         "",
         "Paneer tikka cubes with peppers, onions and mint mayo."
       ],
       [
         "Corn Cheese",
-        "129/149",
+        "129",
         "",
         "",
         "Sweet corn and melted cheese with herbs in a grilled sandwich."
       ],
       [
         "Veggies Overloaded",
-        "99/119",
+        "99",
         "",
         "",
         "Seasonal veggies, olives and cheese packed into whole wheat bread."
       ],
       [
         "Paneer Basic",
-        "89/109",
+        "89",
         "",
         "",
         "Paneer, onions and house spice mix in a simple toasted sandwich."
       ],
       [
         "Veg Basic",
-        "69/89",
+        "69",
         "",
         "",
         "Fresh veggies, lettuce and chutney in a light, crisp sandwich."
       ],
       [
         "Crispy Chicken Popcorn",
-        "149/169",
+        "149",
         "",
         "",
-        "Crunchy chicken popcorn wrapped with slaw and spicy mayo."
+        "Crunchy chicken popcorn layered with slaw and spicy mayo in toasted bread."
       ],
       [
         "Chicken Salami",
-        "149/169",
+        "149",
         "",
         "",
         "Chicken salami, cheese and mustard in a grilled sandwich."
       ],
       [
         "Chicken Sausage",
-        "149/169",
+        "149",
         "",
         "",
         "Chicken sausage slices with caramelised onions and cheese."
       ],
       [
         "Chicken Keema Masala",
-        "149/169",
+        "149",
         "",
         "",
-        "Spiced minced chicken, onions and cheese in a toasty wrap."
+        "Spiced minced chicken, onions and cheese in a toasty sandwich."
       ],
       [
         "BBQ Chicken",
-        "149/169",
+        "149",
         "",
         "",
         "BBQ glazed chicken shreds with pickles and cheddar."
       ],
       [
         "Spicy Chicken Tikka",
-        "139/159",
+        "139",
         "",
         "",
         "Fiery chicken tikka with peppers and cooling mint yogurt."
       ],
       [
         "Egg Chicken",
-        "129/149",
+        "129",
         "",
         "",
         "Scrambled egg and chicken chunks tossed in creamy mayo."
       ],
       [
         "Chicken Cheese",
-        "99/119",
+        "99",
         "",
         "",
         "Melted cheese over seasoned chicken strips in toasted bread."
       ],
       [
         "Chicken Basic",
-        "89/109",
+        "89",
         "",
         "",
         "Simple chicken filling with lettuce, onion and mayo."
       ],
       [
         "Egg Mayo",
-        "79/99",
+        "79",
         "",
         "",
         "Classic egg mayo salad with herbs in soft bread."
+      ]
+    ]
+  },
+  {
+    "cat": "Wraps",
+    "items": [
+      [
+        "Creamy Mushroom",
+        "169",
+        "",
+        "",
+        "Sautéed mushrooms in garlic cream rolled into a warm tortilla."
+      ],
+      [
+        "Spicy Paneer Tikka",
+        "159",
+        "",
+        "",
+        "Paneer tikka cubes with peppers, onions and mint mayo."
+      ],
+      [
+        "Corn Cheese",
+        "149",
+        "",
+        "",
+        "Sweet corn and melted cheese with herbs wrapped in a soft tortilla."
+      ],
+      [
+        "Veggies Overloaded",
+        "119",
+        "",
+        "",
+        "Seasonal veggies, olives and cheese tucked into a soft tortilla."
+      ],
+      [
+        "Paneer Basic",
+        "109",
+        "",
+        "",
+        "Paneer, onions and house spice mix rolled into a soft tortilla."
+      ],
+      [
+        "Veg Basic",
+        "89",
+        "",
+        "",
+        "Fresh veggies, lettuce and chutney wrapped for a light bite."
+      ],
+      [
+        "Crispy Chicken Popcorn",
+        "169",
+        "",
+        "",
+        "Crunchy chicken popcorn wrapped with slaw and spicy mayo."
+      ],
+      [
+        "Chicken Salami",
+        "169",
+        "",
+        "",
+        "Chicken salami, cheese and mustard rolled into a warm tortilla."
+      ],
+      [
+        "Chicken Sausage",
+        "169",
+        "",
+        "",
+        "Chicken sausage slices with caramelised onions and cheese."
+      ],
+      [
+        "Chicken Keema Masala",
+        "169",
+        "",
+        "",
+        "Spiced minced chicken, onions and cheese in a toasty wrap."
+      ],
+      [
+        "BBQ Chicken",
+        "169",
+        "",
+        "",
+        "BBQ glazed chicken shreds with pickles and cheddar."
+      ],
+      [
+        "Spicy Chicken Tikka",
+        "159",
+        "",
+        "",
+        "Fiery chicken tikka with peppers and cooling mint yogurt."
+      ],
+      [
+        "Egg Chicken",
+        "149",
+        "",
+        "",
+        "Scrambled egg and chicken chunks tossed in creamy mayo."
+      ],
+      [
+        "Chicken Cheese",
+        "119",
+        "",
+        "",
+        "Melted cheese over seasoned chicken strips tucked inside a soft tortilla."
+      ],
+      [
+        "Chicken Basic",
+        "109",
+        "",
+        "",
+        "Simple chicken filling with lettuce, onion and mayo."
+      ],
+      [
+        "Egg Mayo",
+        "99",
+        "",
+        "",
+        "Classic egg mayo salad with herbs rolled into a soft tortilla."
       ]
     ]
   },
