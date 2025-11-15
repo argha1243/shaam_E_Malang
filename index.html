@@ -5,7 +5,7 @@
 <title>Shaam-E-Malang Café • Continental & Comfort Food</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-<style>:root {--brand:#E15B25;} .font-display{font-family:'Playfair Display',serif} .font-base{font-family:'Inter',system-ui,Arial} .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.15)} .aspect-video { aspect-ratio: 16 / 9; }</style>
+<style>:root {--brand:#E15B25;} .font-display{font-family:'Playfair Display',serif} .font-base{font-family:'Inter',system-ui,Arial} .shadow-soft{box-shadow:0 10px 30px rgba(0,0,0,.15)} .aspect-video { aspect-ratio: 16 / 9; } .scrollbar-hide{scrollbar-width:none;} .scrollbar-hide::-webkit-scrollbar{display:none;} .slider-nav{position:absolute;top:50%;transform:translateY(-50%);width:2.5rem;height:2.5rem;display:flex;align-items:center;justify-content:center;border-radius:9999px;background:rgba(255,255,255,0.9);box-shadow:0 10px 25px rgba(0,0,0,0.15);} .slider-nav[disabled]{opacity:0.4;cursor:not-allowed;} .slider-nav-left{left:-0.75rem;} .slider-nav-right{right:-0.75rem;} @media(max-width:640px){.slider-nav{display:none;}}</style>
 </head>
 <body class="font-base bg-neutral-50 text-neutral-900">
 <header class="fixed top-0 inset-x-0 z-50 bg-white/80 backdrop-blur border-b border-neutral-200">
@@ -330,6 +330,41 @@ window.SEM_MENU = menuData;
     return null;
   }
 
+  function initSlider(container){
+    if (!container) return;
+    const track = container.querySelector('[data-track]');
+    const prev = container.querySelector('[data-dir="-1"]');
+    const next = container.querySelector('[data-dir="1"]');
+
+    if (!track) return;
+
+    const scrollByAmount = () => Math.max(track.clientWidth * 0.8, 200);
+
+    const updateButtons = () => {
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      if (prev) prev.disabled = track.scrollLeft <= 5;
+      if (next) next.disabled = track.scrollLeft >= maxScroll - 5;
+    };
+
+    if (prev) {
+      prev.addEventListener('click', () => {
+        track.scrollBy({ left: -scrollByAmount(), behavior: 'smooth' });
+      });
+    }
+
+    if (next) {
+      next.addEventListener('click', () => {
+        track.scrollBy({ left: scrollByAmount(), behavior: 'smooth' });
+      });
+    }
+
+    track.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+
+    container._updateButtons = updateButtons;
+    updateButtons();
+  }
+
   data.forEach(sec=>{
     const el = document.createElement('div');
     el.className = 'border rounded-xl bg-white overflow-hidden';
@@ -343,8 +378,8 @@ window.SEM_MENU = menuData;
       const resolved = findImage(name, rawImg);
       const imgSrc = resolved || 'assets/images/logo_round.png';
 
-      return `<article class="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-lg transition-shadow">
-                <div class="aspect-[4/3] w-full overflow-hidden bg-neutral-100">
+      return `<article class="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-sm hover:shadow-lg transition-shadow flex-shrink-0 min-w-[200px] sm:min-w-[240px] snap-start">
+                <div class="aspect-[3/2] w-full overflow-hidden bg-neutral-100">
                   <img src="${imgSrc}" alt="${name}" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" onerror="this.onerror=null;this.src='assets/images/logo_round.png'">
                 </div>
                 <div class="p-4 space-y-2">
@@ -358,16 +393,22 @@ window.SEM_MENU = menuData;
     }).join('');
 
     el.innerHTML = `
-      <button class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-base md:text-lg hover:bg-neutral-50 transition-colors" onclick="const panel=this.nextElementSibling;const icon=this.querySelector('[data-icon]');panel.classList.toggle('hidden');icon.textContent=panel.classList.contains('hidden')?'+':'−';">
+      <button class="w-full flex items-center justify-between px-5 py-4 text-left font-semibold text-base md:text-lg hover:bg-neutral-50 transition-colors" onclick="const panel=this.nextElementSibling;const icon=this.querySelector('[data-icon]');const isHidden=panel.classList.toggle('hidden');icon.textContent=isHidden?'+':'−';if(!isHidden){const slider=panel.querySelector('[data-slider]');if(slider&&slider._updateButtons){slider._updateButtons();}}">
         <span>${sec.cat}</span>
         <span data-icon>+</span>
       </button>
       <div class="hidden px-5 pb-6">
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          ${itemsHtml || '<p class="text-sm text-neutral-500">No items available.</p>'}
+        <div class="relative" data-slider>
+          <button type="button" class="slider-nav slider-nav-left" data-dir="-1" aria-label="Scroll left">&#10094;</button>
+          <div class="flex flex-nowrap gap-4 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory" data-track>
+            ${itemsHtml || '<p class="text-sm text-neutral-500">No items available.</p>'}
+          </div>
+          <button type="button" class="slider-nav slider-nav-right" data-dir="1" aria-label="Scroll right">&#10095;</button>
         </div>
       </div>`;
     acc.appendChild(el);
+
+    initSlider(el.querySelector('[data-slider]'));
   });
 </script>
 </body>
