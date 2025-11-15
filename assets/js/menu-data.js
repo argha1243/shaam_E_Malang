@@ -778,7 +778,7 @@ window.SEM_MENU = [
     ]
   },
   {
-    "cat": "Tea • Coffee • Dessert",
+    "cat": "Tea",
     "items": [
       [
         "Teas (R/M/L): Milk, Ginger, Elaichi, Kesar, Chocolate, Special Masala",
@@ -786,14 +786,24 @@ window.SEM_MENU = [
         "",
         "",
         "Brewed-to-order teas in comforting classic and masala flavours."
-      ],
+      ]
+    ]
+  },
+  {
+    "cat": "Coffee",
+    "items": [
       [
         "Coffee: Black, Milk, Americano, Cold, Latte, Mocha, Caramel Cold Coffee",
         "29–129",
         "",
         "",
         "Barista-style coffees served hot or iced with custom brews."
-      ],
+      ]
+    ]
+  },
+  {
+    "cat": "Dessert",
+    "items": [
       [
         "Dessert: Brownie • Choco Lava Cake • Brownie w/ Ice‑Cream",
         "99–129",
