@@ -663,98 +663,113 @@ window.SEM_MENU = [
     ]
   },
   {
-    "cat": "Combos",
+    "cat": "Shaam-E-Snack",
     "items": [
       [
         "Shaam-E-Snack Combo 1",
-        "Chicken Cheese Sandwich + Masala Tea (M) — 129",
+        "129",
         "",
         "",
-        "Veg grilled sandwich, fries and iced tea combo."
+        "Chicken cheese sandwich served with a medium masala tea."
       ],
       [
         "Shaam-E-Snack Combo 2",
-        "Corn Cheese Sandwich + Masala Tea (M) — 149",
+        "149",
         "",
         "",
-        "Paneer tikka sandwich with fries and cold coffee."
+        "Corn and cheese sandwich paired with a medium masala tea."
       ],
       [
         "Shaam-E-Snack Combo 3",
-        "2 Chicken Tikka Sandwich + 2 Masala Tea — 299",
+        "299",
         "",
         "",
-        "Chicken sandwich, fries and iced tea set."
+        "Two chicken tikka sandwiches matched with two cups of masala tea."
       ],
       [
         "Shaam-E-Snack Combo 4",
-        "2 Chicken Basic Sandwich + Fries (M) + 2 Coke (250ml) — 329",
+        "329",
         "",
         "",
-        "Chicken tikka wrap, fries and cold coffee."
-      ],
+        "Two classic chicken sandwiches with medium fries and two 250 ml Cokes."
+      ]
+    ]
+  },
+  {
+    "cat": "Crunch Bucket",
+    "items": [
       [
         "Crunch Bucket 1",
-        "Wings(2) + Popcorn(10) + Strips(5) + Any dip — 299",
+        "299",
         "",
         "",
-        "Veg popcorn, fries and dip for two snackers."
+        "Two chicken wings, ten popcorn bites, five chicken strips and any house dip."
       ],
       [
         "Crunch Bucket 2",
-        "Wings(4) + Popcorn(20) + Strips(10) + 2 Dips — 599",
+        "599",
         "",
         "",
-        "Chicken popcorn, fries and creamy dip bucket."
-      ],
+        "Four wings, twenty popcorn bites, ten chicken strips and a duo of dips."
+      ]
+    ]
+  },
+  {
+    "cat": "Chakhna Box",
+    "items": [
       [
         "Chakhna Box 1",
-        "Wedges(10) + Fries(R) + Peanut mix + dips — 199",
+        "199",
         "",
         "",
-        "Veg munchies mix with peanuts, fries and masala corn."
+        "Ten potato wedges, regular fries, peanut mix and flavourful dips."
       ],
       [
         "Chakhna Box 2",
-        "Wings(3) + Popcorn(6) + mix + dips — 299",
+        "299",
         "",
         "",
-        "Chicken nuggets, fries and savoury munchies box."
+        "Three wings, six popcorn bites, savoury munchies mix and dips."
       ],
       [
         "Chakhna Box 3",
-        "Cheese Ball(3)+Wedges(5)+Fries(R)+Salad+mix+dips — 299",
+        "299",
         "",
         "",
-        "Fish fingers, fries and spicy peanuts platter."
+        "Three cheese balls, five wedges, regular fries, salad, munchies mix and dips."
       ],
       [
         "Chakhna Box 4",
-        "Basa Fry(1) + Popcorn(6) + Sausage Fry + Fries(M) + mix + dips — 399",
+        "399",
         "",
         "",
-        "Chicken wings, fries and masala papad pairing."
-      ],
+        "Basa fry fillet, six popcorn bites, sausage fry, medium fries, munchies mix and dips."
+      ]
+    ]
+  },
+  {
+    "cat": "Bite & Sip Trios",
+    "items": [
       [
         "Bite & Sip Trio 1",
-        "Crispy Chicken Burger + Fries(R) + Coke — 249",
+        "249",
         "",
         "",
-        "Veg sandwich, fries and choice of cold beverage."
+        "Crispy chicken burger bundled with regular fries and a chilled Coke."
       ],
       [
         "Bite & Sip Trio 2",
-        "Veg Jumbo Burger + Fries(R) + Coke — 249",
+        "249",
         "",
         "",
-        "Chicken burger, fries and chilled drink trio."
+        "Veg jumbo burger with regular fries and an ice-cold Coke."
       ],
       [
         "Bite & Sip Trio 3",
-        "Jumbo Chicken Burger + Classic Cheese Chicken + Fries(M) + 2 Coke — 399",
+        "399",
         "",
         "",
-        "Wrap, fries and cold coffee for an easy meal."
+        "Jumbo chicken burger, classic cheese chicken burger, medium fries and two Cokes."
       ]
     ]
   },
@@ -762,18 +777,95 @@ window.SEM_MENU = [
     "cat": "Drinks",
     "items": [
       [
-        "Milkshakes: Brownie | KitKat | Oreo | Caramel | Chocolate",
-        "139–159",
+        "Brownie Milkshake",
+        "159",
         "",
         "",
-        "Thick milkshakes blended with premium mix-ins and ice cream."
+        "Chocolatey brownie chunks blitzed into a thick, creamy shake."
       ],
       [
-        "Mocktails: Sunset | Shirley Temple | Mango | Litchi | Blue Lagoon | Virgin Mojito",
-        "99–129",
+        "Caramel Milkshake",
+        "139",
         "",
         "",
-        "Refreshing handcrafted mocktails in six vibrant flavours."
+        "Silky caramel sauce swirled through vanilla ice cream."
+      ],
+      [
+        "Chocolate Milkshake",
+        "139",
+        "",
+        "",
+        "Classic chocolate indulgence with a velvety finish."
+      ],
+      [
+        "KitKat Milkshake",
+        "149",
+        "",
+        "",
+        "Crunchy KitKat wafers blended into a frosty delight."
+      ],
+      [
+        "Oreo Milkshake",
+        "149",
+        "",
+        "",
+        "Fan-favourite Oreo cookies spun into a chilled treat."
+      ],
+      [
+        "Blue Lagoon Mocktail",
+        "99",
+        "",
+        "",
+        "Citrusy blue curacao cooler with a sparkling twist."
+      ],
+      [
+        "Litchi Queen Mocktail",
+        "119",
+        "",
+        "",
+        "Sweet litchi nectar balanced with a splash of soda."
+      ],
+      [
+        "Mango Delight Mocktail",
+        "129",
+        "",
+        "",
+        "Lush mango puree shaken with citrus for a tropical sip."
+      ],
+      [
+        "Masala Coke",
+        "59",
+        "",
+        "",
+        "Cola brightened with Shaam‑E‑Malang's tangy masala blend."
+      ],
+      [
+        "Masala Lemonade",
+        "59",
+        "",
+        "",
+        "Zesty lemonade lifted with chaat-style spices."
+      ],
+      [
+        "Shirly Temple Mocktail",
+        "129",
+        "",
+        "",
+        "Grenadine-kissed fizz finished with a cherry on top."
+      ],
+      [
+        "Sunset Mocktail",
+        "129",
+        "",
+        "",
+        "Layered orange and grenadine hues inspired by twilight skies."
+      ],
+      [
+        "Virgin Mojito Mocktail",
+        "99",
+        "",
+        "",
+        "Minty lime spritzer muddled for instant refreshment."
       ]
     ]
   },
