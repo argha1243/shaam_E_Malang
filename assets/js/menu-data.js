@@ -490,7 +490,7 @@ window.SEM_MENU = [
         "Cheesy potato balls crumb-fried till golden."
       ],
       [
-        "Cheesy Fries with Chipotle",
+        "Cheesy Fries with Chipotle Sauce",
         "149",
         "",
         "",
@@ -640,21 +640,21 @@ window.SEM_MENU = [
     "cat": "Momo (8 pcs)",
     "items": [
       [
-        "Veg (Steam/Fry/PanFry)",
+        "Veg (Steam/Fry/PanFry) Momo",
         "79/79/99",
         "",
         "",
         "Choose your style for veggie momos served with spicy chutney."
       ],
       [
-        "Special Chicken (Steam/Fry/PanFry)",
+        "Special Chicken (Steam/Fry/PanFry) Momo",
         "129/129/159",
         "",
         "",
         "Juicy chicken momos with flavour-packed filling and dips."
       ],
       [
-        "Basic Chicken (Steam/Fry/PanFry)",
+        "Basic Chicken (Steam/Fry/PanFry) Momo",
         "99/99/129",
         "",
         "",
