@@ -94,7 +94,7 @@ window.SEM_MENU = [
         "Juicy chicken bites under a duo of mozzarella and cheddar."
       ],
       [
-        "Chicken Makhani",
+        "Chicken Makhani Pizza",
         "269/419",
         "",
         "",
@@ -666,28 +666,28 @@ window.SEM_MENU = [
     "cat": "Shaam-E-Snack",
     "items": [
       [
-        "Shaam-E-Snack Combo 1",
+        "Chicken cheese sandwich with medium masala tea",
         "129",
         "",
         "",
         "Chicken cheese sandwich served with a medium masala tea."
       ],
       [
-        "Shaam-E-Snack Combo 2",
+        "Corn-cheese sandwich with a medium masala tea",
         "149",
         "",
         "",
         "Corn and cheese sandwich paired with a medium masala tea."
       ],
       [
-        "Shaam-E-Snack Combo 3",
+        "2 chicken tikka sandwiches & 2 cups of masala tea",
         "299",
         "",
         "",
         "Two chicken tikka sandwiches matched with two cups of masala tea."
       ],
       [
-        "Shaam-E-Snack Combo 4",
+        "2 classic chicken sandwiches with medium fries and 2 Cokes",
         "329",
         "",
         "",
@@ -699,14 +699,14 @@ window.SEM_MENU = [
     "cat": "Crunch Bucket",
     "items": [
       [
-        "Crunch Bucket 1",
+        "2 chicken wings, 10 popcorn bites, 5 chicken strips plus any house dip",
         "299",
         "",
         "",
         "Two chicken wings, ten popcorn bites, five chicken strips and any house dip."
       ],
       [
-        "Crunch Bucket 2",
+        "4 wings, 20 popcorn bites, 10 chicken strips and a duo of dips",
         "599",
         "",
         "",
@@ -718,32 +718,32 @@ window.SEM_MENU = [
     "cat": "Chakhna Box",
     "items": [
       [
-        "Chakhna Box 1",
+        "Ten potato wedges, regular fries, peanut mix and flavourful dips",
         "199",
         "",
         "",
-        "Ten potato wedges, regular fries, peanut mix and flavourful dips."
+        ""
       ],
       [
-        "Chakhna Box 2",
+        "Three wings, six popcorn bites, savoury munchies mix and dips",
         "299",
         "",
         "",
-        "Three wings, six popcorn bites, savoury munchies mix and dips."
+        ""
       ],
       [
-        "Chakhna Box 3",
+        "Three cheese balls, five wedges, regular fries, salad, munchies mix and dips",
         "299",
         "",
         "",
-        "Three cheese balls, five wedges, regular fries, salad, munchies mix and dips."
+        ""
       ],
       [
-        "Chakhna Box 4",
+        "Basa fry fillet, six popcorn bites, sausage fry, medium fries, munchies mix and dips",
         "399",
         "",
         "",
-        "Basa fry fillet, six popcorn bites, sausage fry, medium fries, munchies mix and dips."
+        ""
       ]
     ]
   },
@@ -751,21 +751,21 @@ window.SEM_MENU = [
     "cat": "Bite & Sip Trios",
     "items": [
       [
-        "Bite & Sip Trio 1",
+        "Crispy chicken burger with regular fries and a chilled Coke",
         "249",
         "",
         "",
         "Crispy chicken burger bundled with regular fries and a chilled Coke."
       ],
       [
-        "Bite & Sip Trio 2",
+        "Veg jumbo burger with regular fries and an ice-cold Coke",
         "249",
         "",
         "",
         "Veg jumbo burger with regular fries and an ice-cold Coke."
       ],
       [
-        "Bite & Sip Trio 3",
+        "Jumbo chicken burger+classic cheese chicken burger+medium fries+two Cokes",
         "399",
         "",
         "",
